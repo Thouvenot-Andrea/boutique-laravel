@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    echo "Hello World";
+});
+
+
+Route::get('/product', function () {
+   echo "Tous les produits";
+});
+
+Route::get('/product/{id}', function ($id) {
+    echo 'Fiche du produit '. $id;
+});
+
+Route::get('/cart', function ($id) {
+    echo 'cart';
 });
