@@ -12,8 +12,8 @@ assignees: ''
 
 ### Acceptance Criteria
 
-[] I have clear Acceptance criteria [what a beautiful recursion].
-[] I have to understand the logic of the mockups, more than the pixels used, so that we can optimize the code.
+- [ ] I have clear Acceptance criteria [what a beautiful recursion].
+- [ ] I have to understand the logic of the mockups, more than the pixels used, so that we can optimize the code.
 
 Please also note:
 
