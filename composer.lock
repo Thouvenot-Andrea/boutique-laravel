@@ -5687,16 +5687,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.10.0",
+            "version": "v3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "f390a22e8914f4b1a1daf4a5722d9a34c87a52a0"
+                "reference": "60d3f5d6298a8b23028927302318856e50cbe59b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/f390a22e8914f4b1a1daf4a5722d9a34c87a52a0",
-                "reference": "f390a22e8914f4b1a1daf4a5722d9a34c87a52a0",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/60d3f5d6298a8b23028927302318856e50cbe59b",
+                "reference": "60d3f5d6298a8b23028927302318856e50cbe59b",
                 "shasum": ""
             },
             "require": {
@@ -5755,7 +5755,7 @@
             ],
             "support": {
                 "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
-                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.10.0"
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.10.2"
             },
             "funding": [
                 {
@@ -5767,7 +5767,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-12T10:42:32+00:00"
+            "time": "2024-02-13T09:14:41+00:00"
         },
         {
             "name": "fakerphp/faker",
