@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DeliveryFeeSeeder::class,
             OrderSeeder::class,
+            AddressSeeder::class
         ]);
     }
 }
