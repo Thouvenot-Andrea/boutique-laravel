@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class CommentFactory extends Factory
             'product_id' => fake()->randomElement(Product::pluck('id')->toArray()),
             'content'=> fake()->text(),
             'rating'=>fake()->numberBetween(0,5),
-            'users_id'=>fake()->randomElement(Product::pluck('id')->toArray()),
+            'user_id'=>fake()->randomElement(User::pluck('id')->toArray()),
         ];
     }
 }
