@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_user', function (Blueprint $table) {
-
+        Schema::create('permission_role', function (Blueprint $table) {
             $table->foreignUuid('role_id')->constrained();
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('permission_id')->constrained();
+
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_role');
+        Schema::dropIfExists('permission_roles');
     }
 };
