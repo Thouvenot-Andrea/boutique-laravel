@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\DeliveryFee;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +20,8 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 10),
-            'delivery_fees_id' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
+            'delivery_fee_id' => $this->faker->randomElement(DeliveryFee::pluck('id')->toArray()),
             'total' => $this->faker->randomFloat(2, 100, 1000),
             'status' => $this->faker->randomElement(['pending', 'delivered', 'canceled']),
             'created_at' => $this->faker->dateTimeThisYear(),
