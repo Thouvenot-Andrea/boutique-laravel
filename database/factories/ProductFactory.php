@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Product;
 
@@ -18,14 +19,15 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            'picture'=> $this->faker->imageUrl,
             'name' => $this-> faker->name(),
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->text(),
             'weight' => $this->faker->randomNumber(),
             'stock' => $this->faker->randomNumber(),
             'TTC_price' => $this->faker->randomFloat(2,0,1000),
             'HT_price' => $this->faker->randomFloat(2,0,1000),
             'VAT' => $this->faker->randomFloat(2,0,100),
-            'categories_id' => $this->faker->numberBetween(1,10),
+            'category_id' => $this->faker->randomElement(Category::pluck('id')->toArray()),
 
         ];
     }

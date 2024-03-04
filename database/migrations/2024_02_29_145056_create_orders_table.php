@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('delivery_fees_id')->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('delivery_fee_id')->constrained();
             $table->timestamp('delivered_at');
             $table->float('total');
             $table->string('status');
