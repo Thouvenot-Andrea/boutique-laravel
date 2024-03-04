@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             OrderLineSeeder::class,
             CommentSeeder::class,
             User_RoleSeeder::class,
+            Role_PermissionSeeder::class,
             DiscountSeeder::class
         ]);
     }
