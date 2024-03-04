@@ -23,7 +23,7 @@ class OrderLineFactory extends Factory
             'price' => $this->faker->randomFloat(2,0,1000),
             'quantity' => $this->faker->randomNumber(),
             'delivered_at' => $this->faker->dateTimeThisYear(),
-            'orders_id' => $this->faker->numberBetween(1, 10),
+            'order_id' => $this->faker->numberBetween(1, 10),
 
         ];
     }
