@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+
+            $table->uuid('id')->primary();
+            $table->string('picture');
             $table->string('name');
             $table->string('description');
             $table->integer('weight');
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->float('HT_price');
             $table->float('VAT');
             $table->timestamps();
-            $table->foreignId('categories_id')->constrained();
+            $table->foreignUuid('category_id')->constrained();
         });
     }
 
