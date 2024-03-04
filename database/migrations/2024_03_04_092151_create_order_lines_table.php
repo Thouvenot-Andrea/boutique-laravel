@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-
+        Schema::create('order_lines', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('picture');
             $table->string('name');
-            $table->string('description');
-            $table->integer('weight');
-            $table->integer('stock');
-            $table->float('TTC_price');
-            $table->float('HT_price');
-            $table->float('VAT');
+            $table->string('productref');
+            $table->float('price');
+            $table->integer('quantity');
+            $table->timestamp('delivered_at');
+            $table->foreignUuid('order_id')->constrained();
             $table->timestamps();
-            $table->foreignUuid('category_id')->constrained();
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('order_lines');
     }
 };
