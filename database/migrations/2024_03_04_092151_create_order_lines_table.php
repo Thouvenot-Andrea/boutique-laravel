@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('price');
             $table->integer('quantity');
             $table->timestamp('delivered_at');
-            $table->foreignUuid('order_id');
+            $table->foreignUuid('order_id')->constrained();
             $table->timestamps();
         });
     }

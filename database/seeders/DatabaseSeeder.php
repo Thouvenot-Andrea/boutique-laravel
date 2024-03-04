@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             OrderLineSeeder::class,
             CommentSeeder::class,
+            DiscountSeeder::class
 
 
         ]);

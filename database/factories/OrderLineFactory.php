@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class OrderLineFactory extends Factory
             'price' => $this->faker->randomFloat(2,0,1000),
             'quantity' => $this->faker->randomNumber(),
             'delivered_at' => $this->faker->dateTimeThisYear(),
-            'order_id' => $this->faker->numberBetween(1, 10),
+            'order_id' => $this->faker->randomElement(Order::pluck('id')->toArray()),
 
         ];
     }
