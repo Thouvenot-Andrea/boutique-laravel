@@ -13,6 +13,6 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::factory(10)->create();
+        \App\Models\Permission::factory(2)->create();
     }
 }
