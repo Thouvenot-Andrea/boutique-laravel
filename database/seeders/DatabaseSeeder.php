@@ -20,8 +20,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             OrderSeeder::class,
+            OrderLineSeeder::class,
             CommentSeeder::class,
             DiscountSeeder::class
+
 
         ]);
     }
