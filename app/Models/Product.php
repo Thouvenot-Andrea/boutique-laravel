@@ -17,7 +17,7 @@ class Product extends Model
         return $this->hasMany(Wishlist::class);
     }
 
-    public function categories(): HasMany
+    public function category(): HasMany
     {
         return $this->hasMany(Category::class);
     }
