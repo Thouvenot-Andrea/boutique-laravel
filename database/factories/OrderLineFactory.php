@@ -20,7 +20,6 @@ class OrderLineFactory extends Factory
         return [
 
             'name' => $this->faker->name(),
-            'productref' => $this->faker->text(),
             'price' => $this->faker->randomFloat(2,0,1000),
             'quantity' => $this->faker->randomNumber(),
             'delivered_at' => $this->faker->dateTimeThisYear(),

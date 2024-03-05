@@ -17,6 +17,8 @@ class DiscountFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => $this->faker->unique()->word,
+            'code' => '#'. $this->faker->unique()->word . "2024",
             'amount' => $this->faker->randomFloat(2,0,100),
             'ended_at' => $this->faker->dateTimeThisYear('+3 weeks')
         ];

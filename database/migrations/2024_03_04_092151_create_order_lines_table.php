@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('order_lines', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('productref');
             $table->float('price');
             $table->integer('quantity');
             $table->timestamp('delivered_at');
