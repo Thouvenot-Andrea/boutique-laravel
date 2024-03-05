@@ -27,12 +27,17 @@ class Order extends Model
 
     public function user(): HasOne
     {
-        return $this->hasOne(User::class, 'users_id');
+        return $this->hasOne(User::class);
     }
 
     public function delivery_fee() : hasOne
     {
-        return $this->hasOne(DeliveryFee::class, 'delivery_fees_id');
+        return $this->hasOne(DeliveryFee::class);
+    }
+
+    public function orderLine()
+    {
+        return $this->hasOne(OrderLine::class);
     }
 
 }

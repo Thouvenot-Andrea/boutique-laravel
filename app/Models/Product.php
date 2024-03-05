@@ -17,5 +17,15 @@ class Product extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 
 }
