@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('town');
             $table->string('country');
+            $table->foreignUuid('user_id')->constrained();
             $table->timestamps();
         });
     }
