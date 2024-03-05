@@ -18,7 +18,7 @@ class DeliveryFeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->name,
             'price' => $this->faker->randomFloat(2, 10, 100),
             'min_weight' => $this->faker->randomFloat(2, 1, 10),
         ];

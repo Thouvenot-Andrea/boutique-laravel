@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('delivery_fees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('price');
             $table->float('min_weight');
             $table->timestamps();
