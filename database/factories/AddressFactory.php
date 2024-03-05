@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class AddressFactory extends Factory
             'postal_code' => fake()->postcode(),
             'town' => fake()->city(),
             'country' => fake()->country(),
+            'user_id' => fake()->randomElement(User::pluck('id')->toArray())
         ];
     }
 }

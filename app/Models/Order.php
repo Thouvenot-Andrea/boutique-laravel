@@ -32,7 +32,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function delivery_fee() : hasOne
+    public function deliveryFee() : HasOne
     {
         return $this->hasOne(DeliveryFee::class);
     }

@@ -33,7 +33,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'phone_number'=>fake()->phoneNumber(),
             'remember_token' => Str::random(10),
-            'address_id' =>$this->faker->randomElement(Address::pluck("id")->toArray()),
         ];
     }
 
