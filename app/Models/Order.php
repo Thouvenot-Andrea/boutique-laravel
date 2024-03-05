@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
@@ -25,14 +27,19 @@ class Order extends Model
     ];
 
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class, 'users_id');
+        return $this->belongsTo(User::class);
     }
 
     public function delivery_fee() : hasOne
     {
-        return $this->hasOne(DeliveryFee::class, 'delivery_fees_id');
+        return $this->hasOne(DeliveryFee::class);
+    }
+
+    public function orderLines(): HasMany
+    {
+        return $this->hasMany(OrderLine::class);
     }
 
 }
