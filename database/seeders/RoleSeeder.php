@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Role::factory(2)->create();
+        $permissions = Permission::inRandomOrder()->limit(random_int(1,10))->get();
+        Role::factory(2)->hasAttached($permissions)->create();
     }
 }

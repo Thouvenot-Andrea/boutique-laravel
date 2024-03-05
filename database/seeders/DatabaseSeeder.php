@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             AddressSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
             DeliveryFeeSeeder::class,
             CategorySeeder::class,
@@ -21,10 +23,8 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             OrderLineSeeder::class,
             CommentSeeder::class,
-            User_RoleSeeder::class,
-            Role_PermissionSeeder::class,
             DiscountSeeder::class,
-            WishlistProductSeeder::class,
+            WishlistSeeder::class,
             RecommendationSeeder::class,
         ]);
     }
