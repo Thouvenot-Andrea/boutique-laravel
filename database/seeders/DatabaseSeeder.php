@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             CommentSeeder::class,
             User_RoleSeeder::class,
             Role_PermissionSeeder::class,
-            DiscountSeeder::class
+            DiscountSeeder::class,
+            WishlistProductSeeder::class,
+
         ]);
     }
 }
