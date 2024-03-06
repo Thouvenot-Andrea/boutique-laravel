@@ -17,7 +17,7 @@
                 <div class="flex flex-wrap justify-center">
                     @foreach($categories as $category)
                         <div>
-                            <div class="mx-3">
+                            <div class="mx-3 w-44">
                                 <img src='{{$category->image}}'>
                             </div>
                             <div class="text-center mt-5 mb-5">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="max-w-[390px]">
                         <h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1>
-                        <h3 class="text-center">  {{$product->TTC_price}} €</h3>
+                        <h3 class="text-center">  {{number_format($product->TTC_price/100, 2)}} €</h3>
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
                     </div>
                 </article>

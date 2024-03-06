@@ -19,7 +19,7 @@ class DeliveryFeeFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name,
-            'price' => $this->faker->randomFloat(2, 10, 100),
+            'price' => $this->faker->randomNumber(4),
             'min_weight' => $this->faker->randomFloat(2, 1, 10),
         ];
     }
