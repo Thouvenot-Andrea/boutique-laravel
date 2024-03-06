@@ -11,8 +11,6 @@ class Address extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $keyType = 'string';
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
