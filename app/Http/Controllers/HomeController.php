@@ -11,26 +11,19 @@ use Nette\Utils\Paginator;
 
 class HomeController extends Controller
 {
-
     public function index()
     {
+        $products = Product::inRandomOrder()->limit(4)->get();
+        $comments = Comment::all();
+        $categories = Category::all();
 
-        return view('homepage', [
-//            'products' => Product::inRandomOrder()->limit(4)->get(),
-            'comments' => Comment::get(['rating']),
-//            'categories'=> Category::all(),
+        foreach ($products as $product) {
+            $product->comments = $comments->where('product_id', $product->id);
+            $product->averageRating = $product->comments->avg('rating');
+        }
 
-           'products' => Product::inRandomOrder()->paginate(2),
-            ]);
+        return view('homepage', compact('products', 'comments', 'categories'));
     }
-
-
-
-//    public function index(){
-//        $categories = Category::all();
-//        return view('homepage', compact('categories'),
-//        );
-//    }
 
 
 }
