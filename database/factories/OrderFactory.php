@@ -22,7 +22,7 @@ class OrderFactory extends Factory
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'delivery_fee_id' => $this->faker->randomElement(DeliveryFee::pluck('id')->toArray()),
-            'total' => $this->faker->randomFloat(2, 100, 1000),
+            'total' => $this->faker->randomNumber(5),
             'status' => $this->faker->randomElement(['pending', 'delivered', 'canceled']),
             'created_at' => $this->faker->dateTimeThisYear(),
             'delivered_at' => $this->faker->dateTimeThisYear(),

@@ -20,7 +20,7 @@ class OrderLineFactory extends Factory
         return [
 
             'name' => $this->faker->name(),
-            'price' => $this->faker->randomFloat(2,0,1000),
+            'price' => $this->faker->randomNumber(5),
             'quantity' => $this->faker->randomNumber(),
             'delivered_at' => $this->faker->dateTimeThisYear(),
             'order_id' => $this->faker->randomElement(Order::pluck('id')->toArray()),

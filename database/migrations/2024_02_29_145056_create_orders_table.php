@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('delivery_fee_id')->constrained();
             $table->timestamp('delivered_at');
-            $table->float('total');
+            $table->integer('total');
             $table->string('status');
             $table->timestamps();
         });
