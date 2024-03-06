@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="flex flex-col space-y-10 md:space-y-16">
-        <div class="flex flex-row space-x-2 justify-center">
+        <div class="flex flex-wrap space-x-2 justify-center">
             @foreach($products as $product)
                 <article>
                     <div>
@@ -40,7 +40,6 @@
                         <h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1>
                         <h3 class="text-center">  {{$product->TTC_price}} €</h3>
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
-                        <!-- Boucle interne pour les commentaires -->
                     </div>
                 </article>
             @endforeach
