@@ -1,7 +1,11 @@
+
 @extends('layouts.app')
+
 
 @section('content')
     @include('header')
+
+
 
     <div class="md:flex">
         @include('sidebar')
@@ -45,9 +49,11 @@
                         <!-- Boucle interne pour les commentaires -->
                     </div>
                 </article>
+
             @endforeach
         </div>
     </div>
+    @include('footer')
 @endsection
 
 
