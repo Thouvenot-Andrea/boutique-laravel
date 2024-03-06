@@ -24,9 +24,9 @@ class ProductFactory extends Factory
             'description' => $this->faker->text(),
             'weight' => $this->faker->randomNumber(),
             'stock' => $this->faker->randomNumber(),
-            'TTC_price' => $this->faker->randomFloat(2,0,1000),
-            'HT_price' => $this->faker->randomFloat(2,0,1000),
-            'VAT' => $this->faker->randomFloat(2,0,100),
+            'TTC_price' => $this->faker->randomNumber(5,),
+            'HT_price' => $this->faker->randomNumber(5,),
+            'VAT' => $this->faker->randomNumber(4),
             'category_id' => $this->faker->randomElement(Category::pluck('id')->toArray()),
 
         ];

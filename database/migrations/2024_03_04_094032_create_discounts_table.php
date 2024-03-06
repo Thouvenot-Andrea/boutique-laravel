@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('code')->unique();
-            $table->float('amount');
+            $table->integer('amount');
             $table->timestamp('ended_at');
             $table->timestamps();
         });
