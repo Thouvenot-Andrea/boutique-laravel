@@ -3,12 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-
-
-
 use http\Env\Request;
-
-
 use App\Models\Product;
 use App\Models\Recommendation;
 
