@@ -24,7 +24,7 @@ class Product extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'product_id');
     }
 
     public function recommendations(): HasMany
