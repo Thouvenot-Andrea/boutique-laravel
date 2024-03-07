@@ -39,12 +39,13 @@
     </section>
 
     @include('sidebar')
+    @if($recommendations)
     <div class="flex flex-col space-y-10 md:space-y-16 ">
         <h2 class="font-bold  text-3xl text-center underline decoration-orange-400">Accessoires</h2>
         <h2 class="text-center uppercase font-bold">Des musiciens ont acheté en même temps ces références, vous en avez
             sûrement besoin</h2>
         <div class="flex flex-col space-y-10 md:space-y-16 ">
-            <div class="flex flex-wrap space-x-2 justify-center">
+            <div class="flex flex-wrap space-x-2 justify-center my-10">
                 @foreach ($recommendations as $recommendation)
                     <article>
                         <div>
@@ -63,6 +64,8 @@
             </div>
         </div>
     </div>
+    @endif
+    @if($comments && $averageRating)
     <div class="flex flex-col space-y-100 md:space-y-10 my-10 ">
         <h2 class="font-bold  text-3xl text-center underline decoration-orange-400">Commentaires</h2>
         <div>
@@ -79,6 +82,7 @@
             </div>
         </div>
     </div>
+    @endif
     @include('footer')
 @endsection
 
