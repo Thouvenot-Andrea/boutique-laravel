@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->text('slug');
             $table->string('code')->unique();
             $table->integer('amount');
             $table->timestamp('ended_at');

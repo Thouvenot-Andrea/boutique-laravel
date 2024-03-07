@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -20,7 +21,8 @@ class ProductFactory extends Factory
     {
         return [
             'picture'=> $this->faker->imageUrl,
-            'name' => $this-> faker->name(),
+            'name' => $name = $this-> faker->name(),
+            'slug' => Str::of($name)->slug(),
             'description' => $this->faker->text(),
             'weight' => $this->faker->randomNumber(),
             'stock' => $this->faker->randomNumber(),
