@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Recommendation;
 
@@ -18,6 +18,8 @@ class ProductController extends Controller
         } else {
             $recommendations = [];
         }
-        return view('product-details', ['id' => $id, 'product' => $product, 'recommendations' => $recommendations]);
+        $comments = $product->comments;
+        $averageRating = $comments->avg('rating');
+        return view('product-details', ['id' => $id], compact('comments', 'product', 'averageRating','recommendations'));
     }
 }
