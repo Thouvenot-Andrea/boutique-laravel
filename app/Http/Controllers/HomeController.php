@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\View\View;
-
 use App\Models\Category;
 use Nette\Utils\Paginator;
 
