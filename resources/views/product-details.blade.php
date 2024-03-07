@@ -45,7 +45,7 @@
         <h2 class="text-center uppercase font-bold">Des musiciens ont acheté en même temps ces références, vous en avez
             sûrement besoin</h2>
         <div class="flex flex-col space-y-10 md:space-y-16 ">
-            <div class="flex flex-wrap space-x-2 justify-center">
+            <div class="flex flex-wrap space-x-2 justify-center my-10">
                 @foreach ($recommendations as $recommendation)
                     <article>
                         <div>
