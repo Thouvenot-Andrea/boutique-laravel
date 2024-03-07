@@ -1,11 +1,6 @@
-@extends('layouts.app')
-
-
-@section('content')
-    @include('header')
-
+<x-app-layout>
     @if ($products->count() >0)
-        <div class="flex flex-row  justify-center">
+        <div class="flex flex-row justify-center">
             @foreach($products as $product)
                 <article>
                     <div>
@@ -18,10 +13,9 @@
                         <p class="text-center text-blue-700">Titre: {{$product->description}}</p>
                     </div>
                 </article>
-            @endforeach
-{{--            @else--}}
-{{--                <p>Aucun produit trouvé pour "{{ $search }}".</p>--}}
+        @endforeach
+        {{--            @else--}}
+        {{--                <p>Aucun produit trouvé pour "{{ $search }}".</p>--}}
 
     @endif
-    @include('footer')
-@endsection
+</x-app-layout>

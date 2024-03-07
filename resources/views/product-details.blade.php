@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-    @include('header')
+<x-app-layout>
 
     <section class="justify-center">
         <h3 class="text-center mb-3 text-5xl mt-10"> {{$product->name}}</h3>
@@ -37,12 +34,11 @@
         </div>
 
     </section>
-
-    @include('sidebar')
     @if($recommendations)
     <div class="flex flex-col space-y-10 md:space-y-16 ">
         <h2 class="font-bold  text-3xl text-center underline decoration-orange-400">Accessoires</h2>
-        <h2 class="text-center uppercase font-bold">Des musiciens ont acheté en même temps ces références, vous en avez
+        <h2 class="text-center uppercase font-bold">Des musiciens ont acheté en même temps ces références, vous en
+            avez
             sûrement besoin</h2>
         <div class="flex flex-col space-y-10 md:space-y-16 ">
             <div class="flex flex-wrap space-x-2 justify-center my-10">
@@ -83,6 +79,5 @@
         </div>
     </div>
     @endif
-    @include('footer')
-@endsection
+</x-app-layout>
 

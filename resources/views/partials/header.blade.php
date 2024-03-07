@@ -1,3 +1,3 @@
 @include('partials.navbar')
 
-@include('sidebar')
+@include('partials.sidebar')
