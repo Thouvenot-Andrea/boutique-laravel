@@ -14,7 +14,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $recommendations = $product->recommendations->random(3);
-        $recommendations->all();
         return view('product-details', ['id' => $id], compact('product', 'recommendations'));
     }
 }
