@@ -37,7 +37,7 @@
                         <img class="object-cover h-[300px] min-w-[290px] max-w-full]" src="{{$product->picture}}">
                     </div>
                     <div class="max-w-[390px]">
-                        <h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1>
+                        <a href="{{ url('/products/' . $product->id) }}"><h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1></a>
                         <h3 class="text-center">  {{$product->TTC_price}} €</h3>
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
                         <!-- Boucle interne pour les commentaires -->

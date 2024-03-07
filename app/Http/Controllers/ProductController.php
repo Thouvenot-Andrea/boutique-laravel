@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
@@ -8,13 +9,15 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::all();
         return view('product-list');
     }
 
-    public function get(Request $request)
+    public function get($id)
     {
-        return view('product-details', ['id' => $id]);
+        $product = Product::find($id);
+        return view('product-details', compact('product'));
     }
 }
