@@ -15,7 +15,8 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
             $table->string('picture');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->text('slug')->unique();
             $table->string('description');
             $table->integer('weight');
             $table->integer('stock');

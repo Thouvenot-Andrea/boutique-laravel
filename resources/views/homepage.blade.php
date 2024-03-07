@@ -33,13 +33,13 @@
             @foreach($products as $product)
                 <article>
                     <div>
-                        <a href="{{route('product.show', $product->id)}}"> <img
+                        <a href="{{route('product.show', $product->slug)}}"> <img
                                 class="object-cover h-[300px] min-w-[290px] max-w-full]"
                                 src="{{$product->picture}}"></a>
                     </div>
                     <div class="max-w-[390px]">
 
-                        <a href="{{ url('/products/' . $product->id) }}"><h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1></a>
+                        <a href="{{ route('product.show', $product->slug) }}"><h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1></a>
                         <h3 class="text-center">  {{number_format($product->TTC_price/100, 2)}} €</h3>
 
 

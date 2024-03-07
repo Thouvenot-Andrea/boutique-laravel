@@ -20,7 +20,7 @@
                         @foreach($productsWithQuantities as $id => $quantity)
                             @php($product = \App\Models\Product::find($id))
                             <div class="rounded-lg mb-6 bg-white p-6 shadow-md flex flex-col md:flex-row items-center">
-                                <img src="{{ $product->picture }}" alt="product-image" class="w-full rounded-lg sm:w-40"/>
+                                <a href="{{route('product.show', $product->slug)}}"> <img src="{{ $product->picture }}" alt="product-image" class="w-full rounded-lg sm:w-40"/></a>
                                 <div class="ml-4 flex-grow">
                                     <h2 class="text-lg font-bold text-gray-900">{{ $product->name }}</h2>
                                     <div class="mt-1 flex justify-between items-center">
