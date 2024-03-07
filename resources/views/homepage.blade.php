@@ -1,7 +1,11 @@
+
 @extends('layouts.app')
+
 
 @section('content')
     @include('header')
+
+
 
     <div class="md:flex">
         @include('sidebar')
@@ -42,9 +46,11 @@
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
                     </div>
                 </article>
+
             @endforeach
         </div>
     </div>
+    @include('footer')
 @endsection
 
 
