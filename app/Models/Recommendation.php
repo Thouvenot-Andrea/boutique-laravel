@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Recommendation
@@ -47,8 +48,8 @@ class Recommendation extends Model
     /**
      * Get all 3 recommended products
      */
-    public function recommendedProducts(): HasMany
+    public function recommendedProduct(): HasOne
     {
-        return $this->hasMany(Product::class, 'id', 'recommended_product_id');
+        return $this->hasOne(Product::class, 'id', 'recommended_product_id');
     }
 }
