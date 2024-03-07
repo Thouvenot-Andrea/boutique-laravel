@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\View\View;
@@ -24,6 +23,5 @@ class HomeController extends Controller
 
         return view('homepage', compact('products', 'comments', 'categories'));
     }
-
 
 }
