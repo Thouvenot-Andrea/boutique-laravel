@@ -19,14 +19,8 @@
             <div>
                 <div class="flex items-center">
                     <span class="mr-2">Quantité:</span>
-                    <button id="decreaseBtn"
-                            class="px-3 py-1 bg-gray-200 text-gray-700 rounded-l focus:outline-none">-
-                    </button>
-                    <input id="quantityInput" type="text" value="1"
-                           class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none" readonly>
-                    <button id="increaseBtn"
-                            class="px-3 py-1 bg-gray-200 text-gray-700 rounded-r focus:outline-none">+
-                    </button>
+                    <input id="quantityInput" type="number" value="1"
+                           class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none">
                 </div>
             </div>
             <div>
