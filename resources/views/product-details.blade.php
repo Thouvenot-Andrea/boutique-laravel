@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -22,7 +21,6 @@
                                 €</h3>
                         </div>
                     </article>
-
                 @endforeach
             </div>
         </div>
