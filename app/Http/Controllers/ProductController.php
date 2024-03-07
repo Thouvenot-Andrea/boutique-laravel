@@ -21,6 +21,17 @@ class ProductController extends Controller
         } else {
             $recommendations = [];
         }
+        return view('product-details', ['id' => $id, 'product' => $product, 'recommendations' => $recommendations]);
+    }
+
+    public function getBySlug($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        if ($product && $product->recommendations->count() > 0) {
+            $recommendations = $product->recommendations->random(min(3, $product->recommendations->count()));
+        } else {
+            $recommendations = [];
+        }
         $comments = $product->comments;
         $averageRating = $comments->avg('rating');
         return view('product-details', ['id' => $id], compact('comments', 'product', 'averageRating','recommendations'));
