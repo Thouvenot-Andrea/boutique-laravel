@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="">
-                <a href="#" class="text-white text-lg font-semibold ">
+                <a href="{{ route('home') }}" class="text-white text-lg font-semibold ">
                     <img src="{{ asset('images/logo.svg') }}" alt="Bio" class=" w-36 md:w-44 h-auto py-2">
                 </a>
             </div>
@@ -45,8 +45,14 @@
                 <a href="{{ url('/wishlist') }}" class="text-white hover:text-gray-300">
                     <img src="{{ asset('images/heart.svg') }}" alt="">
                 </a>
-                <a href="{{ url('/cart') }}" class="text-white hover:text-gray-300">
-                    <img src="{{ asset('images/cart.svg') }}" alt="">
+                <a href="{{ url('/cart') }}" class="text-white hover:text-gray-300 relative">
+                    <div class="relative">
+                        <img src="{{ asset('images/cart.svg') }}" alt="">
+                        <!-- Badge -->
+                        @if(session()->get('cart'))
+                        <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full py-1 px-2 w-4 h-4 items-center"><p class="absolute top-0 right-1">{{ \App\Http\Controllers\CartController::totalProductsCount() }}</p></div>
+                        @endif
+                    </div>
                 </a>
             </div>
         </div>
