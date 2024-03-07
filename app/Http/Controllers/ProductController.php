@@ -15,11 +15,10 @@ class ProductController extends Controller
         $products = Product::all();
         return view('product-list');
     }
-  
+
     public function get($id)
     {
         $product = Product::find($id);
-        return view('product-details', compact('product'));
 
         if ($product && $product->recommendations->count() > 0) {
             $recommendations = $product->recommendations->random(min(3, $product->recommendations->count()));
