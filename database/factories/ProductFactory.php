@@ -21,8 +21,8 @@ class ProductFactory extends Factory
     {
         return [
             'picture'=> $this->faker->imageUrl,
-            'name' => $this-> faker->name(),
-            'slug' => Str::of($this->faker->name)->slug(),
+            'name' => $name = $this-> faker->name(),
+            'slug' => Str::of($name)->slug(),
             'description' => $this->faker->text(),
             'weight' => $this->faker->randomNumber(),
             'stock' => $this->faker->randomNumber(),

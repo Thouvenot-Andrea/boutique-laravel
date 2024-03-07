@@ -13,16 +13,6 @@ class ProductController extends Controller
         $products = Product::all();
         return view('product-list');
     }
-    public function get($id)
-    {
-        $product = Product::find($id);
-        if ($product && $product->recommendations->count() > 0) {
-            $recommendations = $product->recommendations->random(min(3, $product->recommendations->count()));
-        } else {
-            $recommendations = [];
-        }
-        return view('product-details', ['id' => $id, 'product' => $product, 'recommendations' => $recommendations]);
-    }
 
     public function getBySlug($slug)
     {
@@ -34,6 +24,6 @@ class ProductController extends Controller
         }
         $comments = $product->comments;
         $averageRating = $comments->avg('rating');
-        return view('product-details', ['id' => $id], compact('comments', 'product', 'averageRating','recommendations'));
+        return view('product-details', ['id' => $slug], compact('comments', 'product', 'averageRating','recommendations'));
     }
 }
