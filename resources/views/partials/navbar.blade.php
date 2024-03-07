@@ -4,7 +4,8 @@
             <div class="flex">
                 <button id="toggleSidebar" class="text-white focus:outline-none focus:text-white">
                     <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                        <path id="menuIcon" fill-rule="evenodd" clip-rule="evenodd" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+                        <path id="menuIcon" fill-rule="evenodd" clip-rule="evenodd"
+                              d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
                     </svg>
                 </button>
             </div>
@@ -14,10 +15,11 @@
                 </a>
             </div>
             <div class="hidden items-center md:flex">
-                <form class="relative flex items-center" method="get" action="">
+                <form class="relative flex items-center" method="get" action="{{route('search')}}">
                     <input
-                        type="search"
-                        placeholder="Search"
+                        type="text"
+                        name="search"
+                        placeholder="Find your Tempo"
                         class="w-64 h-8 py-2 px-4 rounded-full border-2 focus:outline-none focus:border-blue-500 transition-all duration-300 transform focus:scale-110"
                     />
                     <button type="submit" class="absolute right-0 mr-3">
@@ -57,7 +59,9 @@
             </div>
         </div>
     </div>
+
 </nav>
+
 
 
 
