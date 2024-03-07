@@ -13,7 +13,11 @@ class ProductController extends Controller
     public function get($id)
     {
         $product = Product::find($id);
-        $recommendations = $product->recommendations->random(3);
-        return view('product-details', ['id' => $id], compact('product', 'recommendations'));
+        if ($product && $product->recommendations->count() > 0) {
+            $recommendations = $product->recommendations->random(min(3, $product->recommendations->count()));
+        } else {
+            $recommendations = [];
+        }
+        return view('product-details', ['id' => $id, 'product' => $product, 'recommendations' => $recommendations]);
     }
 }
