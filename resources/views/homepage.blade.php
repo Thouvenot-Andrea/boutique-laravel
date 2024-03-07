@@ -1,7 +1,10 @@
+
 @extends('layouts.app')
+
 
 @section('content')
     @include('header')
+
 
     <div class="md:flex">
         @include('sidebar')
@@ -17,7 +20,7 @@
                 <div class="flex flex-wrap justify-center">
                     @foreach($categories as $category)
                         <div>
-                            <div class="mx-3">
+                            <div class="mx-3 w-44">
                                 <img src='{{$category->image}}'>
                             </div>
                             <div class="text-center mt-5 mb-5">
@@ -30,22 +33,28 @@
         </div>
     </div>
     <div class="flex flex-col space-y-10 md:space-y-16">
-        <div class="flex flex-row space-x-2 justify-center">
+        <div class="flex flex-wrap space-x-2 justify-center">
             @foreach($products as $product)
                 <article>
                     <div>
                         <img class="object-cover h-[300px] min-w-[290px] max-w-full]" src="{{$product->picture}}">
                     </div>
                     <div class="max-w-[390px]">
+
                         <a href="{{ url('/products/' . $product->id) }}"><h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1></a>
                         <h3 class="text-center">  {{$product->TTC_price}} €</h3>
+
+                        <h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1>
+                        <h3 class="text-center">  {{number_format($product->TTC_price/100, 2)}} €</h3>
+
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
-                        <!-- Boucle interne pour les commentaires -->
                     </div>
                 </article>
+
             @endforeach
         </div>
     </div>
+    @include('footer')
 @endsection
 
 

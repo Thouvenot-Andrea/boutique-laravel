@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('description');
             $table->integer('weight');
             $table->integer('stock');
-            $table->float('TTC_price');
-            $table->float('HT_price');
-            $table->float('VAT');
+            $table->integer('TTC_price');
+            $table->integer('HT_price');
+            $table->integer('VAT');
             $table->timestamps();
             $table->foreignUuid('category_id')->constrained();
         });
