@@ -20,10 +20,11 @@ class HomeController extends Controller
         foreach ($products as $product) {
             $product->comments = $comments->where('product_id', $product->id);
             $product->averageRating = $product->comments->avg('rating');
+
         }
+
 
         return view('homepage', compact('products', 'comments', 'categories'));
     }
-
 
 }
