@@ -4,32 +4,38 @@
     @include('header')
 
     <section class="justify-center">
-        <h3 class="text-center mb-3"> {{$product->name}}</h3>
-        <div class="flex flex-wrap justify-center ">
-            <div>
-                <img class=" min-w-[250px] max-w-[250px] mr-15" src="{{$product->picture}}">
-            </div>
-            <div class="text-center m-8">
-                <p class="max-w-[350px]">{{$product->description}}</p>
-            </div>
-        </div>
-        <div >
-            <div>
-                <p class="text-red-600 text-center ">{{$product->TTC_price}} €</p>
-            </div>
-            <div class="flex flex-row justify-center ">
-                <div class="">
-                    <div class="flex items-center my-2">
-                        <span class="mr-30">Quantité:</span>
-                        <input id="quantityInput" type="number" value="1"
-                               class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none">
-                    </div>
+        <h3 class="text-center mb-3 text-5xl mt-10"> {{$product->name}}</h3>
+
+        <div class="flex flex-wrap justify-center m-10">
+
+            <div class="flex flex-wrap justify-evenly">
+
+                <div>
+                    <img class=" min-w-[250px] max-w-[250px] mr-15" src="{{$product->picture}}">
                 </div>
-                <div class="">
-                    <button class="btn ">Ajouter au panier</button>
+                <div class="text-center m-8">
+                    <p class="max-w-[350px]">{{$product->description}}</p>
                 </div>
             </div>
+
+            <form class="flex flex-row justify-evenly" method="post" action="{{ route('cart.add') }}">
+                @csrf
+                <div>
+                    <p class="text-red-600">{{number_format($product->TTC_price, 2)}} €</p>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2">Quantité:</span>
+                    <input name="product_id" type="hidden" value="{{$product->id}}" class="hidden">
+                    <input id="quantityInput" name="quantity" type="number" value="1"
+                           class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none">
+                </div>
+                <div class="flex items-center">
+                    <input type="submit" class="btn" value="Ajouter au panier">
+                </div>
+            </form>
+
         </div>
+
     </section>
 
     @include('sidebar')
