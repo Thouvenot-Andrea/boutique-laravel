@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\View\View;
+
 use App\Models\Category;
 use Nette\Utils\Paginator;
 
@@ -24,6 +24,5 @@ class HomeController extends Controller
 
         return view('homepage', compact('products', 'comments', 'categories'));
     }
-
 
 }

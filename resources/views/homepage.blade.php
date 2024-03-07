@@ -6,7 +6,6 @@
     @include('header')
 
 
-
     <div class="md:flex">
         @include('sidebar')
 
@@ -43,8 +42,13 @@
                                 src="{{$product->picture}}"></a>
                     </div>
                     <div class="max-w-[390px]">
+
+                        <a href="{{ url('/products/' . $product->id) }}"><h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1></a>
+                        <h3 class="text-center">  {{$product->TTC_price}} €</h3>
+
                         <h1 class="text-center text-blue-700">Titre: {{$product->name}}</h1>
                         <h3 class="text-center">  {{number_format($product->TTC_price/100, 2)}} €</h3>
+
                         <h3 class="text-center">{{$product->averageRating}} / 5</h3>
                     </div>
                 </article>
