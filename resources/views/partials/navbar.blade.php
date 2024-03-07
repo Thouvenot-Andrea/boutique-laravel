@@ -49,7 +49,7 @@
                     <div class="relative">
                         <img src="{{ asset('images/cart.svg') }}" alt="">
                         <!-- Badge -->
-                        @if(session()->get('cart'))
+                        @if(session()->get('cart') && \App\Http\Controllers\CartController::totalProductsCount() != 0)
                         <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full py-1 px-2 w-4 h-4 items-center"><p class="absolute top-0 right-1">{{ \App\Http\Controllers\CartController::totalProductsCount() }}</p></div>
                         @endif
                     </div>
