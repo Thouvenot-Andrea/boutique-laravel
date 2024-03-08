@@ -1,6 +1,6 @@
 <nav class="bg-black  z-50">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between items-center">
+    <div class="px-4">
+        <div class="flex justify-between items-center mx-20">
             <div class="flex">
                 <button id="toggleSidebar" class="text-white focus:outline-none focus:text-white">
                     <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
@@ -40,9 +40,13 @@
                     </button>
                 </form>
             </div>
-            <div class="flex space-x-4 border-2 p-2 my-4">
-                <a href="{{ url('/login') }}" class="text-white hover:text-gray-300">
-                    <img src="{{ asset('images/user.svg') }}" alt="">
+            <div class="flex space-x-4 border-2 p-2 my-4 items-center">
+                <a href="{{ route('profile.edit') }}" class="text-white hover:text-gray-300">
+                    @auth
+                        <img src="{{ asset('images/user-checked.svg') }}" alt="" class="w-7">
+                    @else
+                        <img src="{{ asset('images/user.svg') }}" alt="">
+                    @endauth
                 </a>
                 <a href="{{ url('/wishlist') }}" class="text-white hover:text-gray-300">
                     <img src="{{ asset('images/heart.svg') }}" alt="">
@@ -52,10 +56,19 @@
                         <img src="{{ asset('images/cart.svg') }}" alt="">
                         <!-- Badge -->
                         @if(session()->get('cart') && \App\Http\Controllers\CartController::totalProductsCount() != 0)
-                        <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full py-1 px-2 w-4 h-4 items-center"><p class="absolute top-0 right-1">{{ \App\Http\Controllers\CartController::totalProductsCount() }}</p></div>
+                            <div
+                                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full py-1 px-2 w-4 h-4 items-center">
+                                <p class="absolute top-0 right-1">{{ \App\Http\Controllers\CartController::totalProductsCount() }}</p>
+                            </div>
                         @endif
                     </div>
                 </a>
+                @auth
+                    <form method="POST" action="{{ route('logout') }}" class="w-7 flex">
+                        @csrf
+                        <button type="submit"><img src="{{ asset('images/logout.svg') }}" alt=""></button>
+                    </form>
+                @endauth
             </div>
         </div>
     </div>

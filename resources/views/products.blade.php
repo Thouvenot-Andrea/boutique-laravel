@@ -1,5 +1,5 @@
 <x-app-layout>
-    <h2 class="font-bold  text-4xl text-center underline decoration-orange-400 mt-10">CATELOGUE</h2>
+    <h2 class="font-bold  text-4xl text-center underline decoration-orange-400 mt-10">CATALOGUE</h2>
     <div >
         <!-- Bouton de filtrage -->
         <div class="col-span-1">

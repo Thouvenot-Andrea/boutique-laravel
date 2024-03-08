@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('username')->unique();
+            $username = $table->string('username')->unique();
             $table->text('slug');
             $table->string('firstname');
             $table->string('lastname');

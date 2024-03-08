@@ -31,7 +31,17 @@
                 </div>
             </form>
 
+            <form action="{{ route('wishlist.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="product_id" value="{{$product->id}}">
+{{--                Heart svg--}}
+                <button type="submit" class="btn">
+                <img src="{{asset('images/heart.svg')}}" alt="heart">
+                </button>
+            </form>
+
         </div>
+
 
     </section>
     @if($recommendations)
