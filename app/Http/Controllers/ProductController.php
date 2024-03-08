@@ -10,17 +10,92 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Recommendation;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+
+
+
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('product-list');
+        // Créer une instance de la requête pour les produits
+        $productsQuery = Product::query();
+
+        // Appliquer les filtres
+        $productsQuery = $this->priceFilter($request, $productsQuery);
+        $productsQuery = $this->stockFilter($request, $productsQuery);
+        $productsQuery = $this->ratingFilter($request, $productsQuery);
+
+        // Paginer les résultats
+        $products = $productsQuery->paginate(6);
+
+        // Récupérer les commentaires une fois que les filtres sont appliqués
+        $comments = Comment::all();
+
+        // Appliquer les filtres après la pagination
+        $products->each(function ($product) use ($comments) {
+            $product->comments = $comments->where('product_id', $product->id);
+            $product->averageRating = $product->comments->avg('rating');
+        });
+
+        return view('products', compact('products'));
     }
 
+    private function priceFilter(Request $request, $productsQuery)
+    {
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
+
+        // Appliquer les filtres
+        if ($minPrice) {
+            $productsQuery = $productsQuery->where('TTC_price', '>=', (float) $minPrice);
+        }
+
+        if ($maxPrice) {
+            $productsQuery = $productsQuery->where('TTC_price', '<=', (float) $maxPrice);
+        }
+
+        return $productsQuery;
+    }
+
+    private function stockFilter(Request $request, $productsQuery)
+    {
+        if ($request->filled('in_stock')) {
+            $inStock = $request->input('in_stock') == 'true';
+
+            // Appliquer le filtre de stock
+            if ($inStock) {
+                $productsQuery = $productsQuery->where('stock', '>', 0);
+            }
+        }
+
+        return $productsQuery;
+    }
+
+    private function ratingFilter(Request $request, $productsQuery)
+    {
+        if ($request->has('min_rating')) {
+            $minRating = (float) $request->input('min_rating');
+
+            // Appliquer le filtre de note minimale
+            $productsQuery = $productsQuery->whereHas('comments', function ($query) use ($minRating) {
+                $query->where('rating', '>=', $minRating);
+            });
+        }
+
+        return $productsQuery;
+    }
+
+    private function average($products, $comments)
+    {
+        foreach ($products as $product) {
+            $product->comments = $comments->where('product_id', $product->id);
+            $product->averageRating = $product->comments->avg('rating');
+        }
+}
 
     public function search(Request $request)
     {
