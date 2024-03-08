@@ -54,6 +54,19 @@ class Product extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $fillable = [
+        'slug',
+        'name',
+        'weight',
+        'picture',
+        'description',
+        'stock',
+        'HT_price',
+        'TTC_price',
+        'VAT',
+        'category_id'
+    ];
+
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);

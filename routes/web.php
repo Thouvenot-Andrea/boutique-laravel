@@ -48,4 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 });
 
+Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
 require __DIR__.'/auth.php';
