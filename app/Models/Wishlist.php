@@ -34,6 +34,10 @@ class Wishlist extends Model
     use HasFactory;
     use HasUuids;
 
+    protected $fillable = [
+        'user_id'
+    ];
+
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
