@@ -1,18 +1,14 @@
 <x-app-layout>
     <h2 class="font-bold  text-4xl text-center underline decoration-orange-400 mt-10">CATALOGUE</h2>
     <div >
-        <!-- Bouton de filtrage -->
         <div class="col-span-1">
             <button class="text-2xl m-10" onclick="toggleFilterForm()">Filtrer</button>
         </div>
-
-        <!-- Filtre (initiallement caché) -->
         <div id="filter-form-container"  >
-            <form action="{{ url('/products') }}" method="get" >
-                <!-- Vos champs de filtrage ici -->
+            <form action="{{route('products',$category->slug) }}" method="get" >
                 <div class="mb-5">
                 <label for="min_price">Prix minimum :</label>
-                <input type="text" name="min_price" id="min_price" value="{{ request('min_price') }}">
+                <input type="text" name="min_price" id="min_price" value="{{ request('min_price')}}">
                 </div>
                 <div class="mb-5">
                 <label for="max_price">Prix maximum :</label>
@@ -26,14 +22,12 @@
                 <button class=" text-center ml-20 rounded border-2 border-orange-500 hover:bg-orange-500 " type="submit">Filtrer</button>
             </form>
         </div>
-
-        <!-- Produits -->
         <div class="flex flex-wrap gap-40 justify-center">
             @foreach($products as $product)
                 <article class="flex flex-col w-[400px]">
                     <div>
                         <a href="{{route('product.show', $product->slug)}}">
-                            <img class="object-cover h-[300px] min-w-[290px] max-w-full" src="{{$product->picture}}">
+                            <img class="object-cover h-[300px] min-w-[290px] max-w-full" src="{{$product->picture}}" alt="product picture">
                         </a>
                     </div>
                     <div class="max-w-[390px]">
@@ -50,7 +44,8 @@
             @endforeach
         </div>
     </div>
-    {{$products->links()}}
+    {{ $products->appends(request()->query())->links() }}
+
 
 </x-app-layout>
 <script>

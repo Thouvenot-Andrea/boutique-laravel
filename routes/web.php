@@ -21,7 +21,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/category/{category_id}', [ProductController::class, 'index'])->name('products');
 
 Route::get('/product/{id}', [ProductController::class, 'getBySlug'])->name('product.show');
 
@@ -30,10 +30,8 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -46,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/add', [WishlistController::class, 'store'])->name('wishlist.store');
     Route::delete('/wishlist/remove', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 });
 
 Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('order_lines', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->text('slug');
+            $table->text('slug')->nullable();
             $table->integer('price');
             $table->integer('quantity');
-            $table->timestamp('delivered_at');
+            $table->timestamp('delivered_at')->nullable();
             $table->foreignUuid('order_id')->constrained();
             $table->timestamps();
         });

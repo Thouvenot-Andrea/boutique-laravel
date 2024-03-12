@@ -16,7 +16,7 @@
                             <article>
                                 <div>
                                     <img class="object-cover h-[300px] min-w-[290px] max-w-full]"
-                                         src="{{$product->picture}}">
+                                         src="{{$product->picture}}" alt="product picture">
                                 </div>
                                 <div class="max-w-[390px]">
                                     <h1 class="text-center text-blue-700">
