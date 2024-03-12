@@ -5,24 +5,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Providers\RouteServiceProvider;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Recommendation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-
-
     public function index(Request $request, string $category_id)
     {
-
         $category = Category::where('slug', '=', $category_id)->first();
         $products = $category->products();
 
@@ -47,14 +46,15 @@ class ProductController extends Controller
         $maxPrice = $request->input('max_price');
 
         if ($minPrice) {
+            $products = $products->where('TTC_price', '>=', (float)$minPrice);
             $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
         if ($maxPrice) {
-            $products = $products->where('TTC_price', '<=', (int)$maxPrice);
+            $products = $products->where('TTC_price', '<=', (float)$maxPrice);
         }
+
         return $products;
     }
-
     private function ratingFilter(Request $request, HasMany $products)
     {
         if ($request->has('min_rating')) {
@@ -69,8 +69,13 @@ class ProductController extends Controller
 
         return $products;
     }
-
-
+    private function average($products, $comments)
+    {
+        foreach ($products as $product) {
+            $product->comments = $comments->where('product_id', $product->id);
+            $product->averageRating = $product->comments->avg('rating');
+        }
+    }
 
     public function search(Request $request)
     {
@@ -85,14 +90,10 @@ class ProductController extends Controller
 
         return view('searchResult', [
             'products' => $search,
-            'searchTerm' => $search,
-
         ]);
-
     }
 
     public function getBySlug($slug)
-
     {
         $product = Product::where('slug', $slug)->first();
         if ($product && $product->recommendations->count() > 0) {
@@ -107,12 +108,18 @@ class ProductController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $categories = Category::all();
         return view('dashboard', compact('categories'));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('create', Product::class);
         $request->validate([
             'picture' => ['required', 'file'],
             'name' => ['required', 'string', 'max:255'],
