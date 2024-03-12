@@ -95,19 +95,18 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $products = Product::latest();
+        $products = [];
         if ($search) {
-            $products
-                ->where('name', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
+            $products = Product::
+                where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')->get();
         }
-        $search = $products->get();
 
-        return view('searchResult', [
-            'products' => $search,
+        return view('searchResult', compact(
+            'products',
+            'search',
 
-
-        ]);
+        ));
 
     }
 

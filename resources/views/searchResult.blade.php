@@ -14,8 +14,8 @@
                     </div>
                 </article>
         @endforeach
-{{--                    @else--}}
-{{--                        <p>Aucun produit trouvé pour "{{ $search }}".</p>--}}
+                    @else
+                        <p>Aucun produit trouvé pour "{{ $search }}".</p>
 
     @endif
 </x-app-layout>
