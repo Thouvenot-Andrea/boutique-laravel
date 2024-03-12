@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Comment;
@@ -33,7 +35,7 @@ class ProductController extends Controller
 
         $products->each(function ($product) use ($comments) {
             $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating =round($product->comments->avg('rating'));
+            $product->averageRating=$product->comments->avg('rating');
         });
 
         return view('products', compact('products', 'category'));
@@ -53,18 +55,22 @@ class ProductController extends Controller
         return $products;
     }
 
-    private function ratingFilter(Request $request, $products)
+    private function ratingFilter(Request $request, HasMany $products)
     {
         if ($request->has('min_rating')) {
             $minRating = (float)$request->input('min_rating');
 
             $products = $products->whereHas('comments', function ($query) use ($minRating) {
-                $query->where('rating', '>=', $minRating);
+                $query->selectRaw('product_id, AVG(rating) as average_rating')
+                    ->groupBy('product_id')
+                    ->havingRaw('AVG(rating) >= ?', [$minRating]);
             });
         }
 
         return $products;
     }
+
+
 
     public function search(Request $request)
     {
