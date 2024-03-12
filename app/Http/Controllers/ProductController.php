@@ -117,7 +117,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Product::class);
+//        $this->authorize('create', Product::class);
 
         $categories = Category::all();
         return view('dashboard', compact('categories'));
@@ -128,16 +128,17 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->authorize('create', Product::class);
+//        $this->authorize('create', Product::class);
         $request->validate([
-            'picture' => ['required', 'file'],
+
+            'picture' => ['required', 'string'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:800'],
             'weight' => ['required', 'string', 'max:5'],
             'stock' => ['required', 'string', 'max:10'],
             'HT_price' => ['required', 'string', 'max:10'],
             'VAT' => ['required', 'string', 'max:5'],
-            'category_id' => ['required', 'select'],
+            'category_id' => ['required', 'string'],
         ]);
 
         $product = Product::create([
@@ -156,30 +157,30 @@ class ProductController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-//    public function edit(Product $product)
-//    {
-//        $categories = Category::all();
-//        return view('product-edit', ['product' => $product], compact('categories','product'));
-//    }
-//
-//    public function update(ProductRequest $request, Product $product): RedirectResponse
-//    {
-//        $product->update($request->validated());
-//        $validateData = $request->validated(); //valider les données
-//
-//        $product->update([ //mettre à jour
-//            'picture' => $validateData['picture'],
-//            'name' => $validateData['name'],
-//            'description' => $validateData['description'],
-//            'weight' => $validateData['weight'],
-//            'stock' => $validateData['stock'],
-//            'HT_price' => $validateData['HT_price'],
-//            'TTC_price' => $validateData['TTC_price'],
-//            'VAT' => $validateData['VAT'],
-//            'category_id' => $validateData['category_id'],
-//        ]);
-////        $request->products()->save(); //enregiter les données
-//        return Redirect::route('product-edit',['slug'=> $product->slug, 'product' => $product->id])->with('success', 'Le produit à été modifié avec succès');
-//
-//    }
+    public function edit(Product $product)
+    {
+        $categories = Category::all();
+        return view('product-edit', ['product' => $product], compact('categories','product'));
+    }
+
+    public function update(ProductRequest $request, Product $product): RedirectResponse
+    {
+        $product->update($request->validated());
+        $validateData = $request->validated(); //valider les données
+
+        $product->update([ //mettre à jour
+            'picture' => $validateData['picture'],
+            'name' => $validateData['name'],
+            'description' => $validateData['description'],
+            'weight' => $validateData['weight'],
+            'stock' => $validateData['stock'],
+            'HT_price' => $validateData['HT_price'],
+            'TTC_price' => $validateData['TTC_price'],
+            'VAT' => $validateData['VAT'],
+            'category_id' => $validateData['category_id'],
+        ]);
+//        $request->products()->save(); //enregiter les données
+        return Redirect::route('product-edit',['slug'=> $product->slug, 'product' => $product->id])->with('success', 'Le produit à été modifié avec succès');
+
+    }
 }
