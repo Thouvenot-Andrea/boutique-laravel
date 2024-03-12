@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Providers\RouteServiceProvider;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,16 +16,12 @@ use App\Models\Product;
 use App\Models\Recommendation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-
-
     public function index(Request $request, string $category_id)
     {
-
         $category = Category::where('slug', '=', $category_id)->first();
         $products = $category->products();
 
@@ -35,7 +34,7 @@ class ProductController extends Controller
 
         $products->each(function ($product) use ($comments) {
             $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating =round($product->comments->avg('rating'));
+            $product->averageRating=$product->comments->avg('rating');
         });
 
         return view('products', compact('products', 'category'));
@@ -47,29 +46,36 @@ class ProductController extends Controller
         $maxPrice = $request->input('max_price');
 
         if ($minPrice) {
+            $products = $products->where('TTC_price', '>=', (float)$minPrice);
+            $products = $products->where('TTC_price', '>=', (int)$minPrice);
+        }
+        if ($maxPrice) {
+            $products = $products->where('TTC_price', '<=', (float)$maxPrice);
+
             $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
         if ($maxPrice) {
             $products = $products->where('TTC_price', '<=', (int)$maxPrice);
+
         }
 
         return $products;
     }
 
-
-    private function ratingFilter(Request $request, $products)
+    private function ratingFilter(Request $request, HasMany $products)
     {
         if ($request->has('min_rating')) {
             $minRating = (float)$request->input('min_rating');
 
             $products = $products->whereHas('comments', function ($query) use ($minRating) {
-                $query->where('rating', '>=', $minRating);
+                $query->selectRaw('product_id, AVG(rating) as average_rating')
+                    ->groupBy('product_id')
+                    ->havingRaw('AVG(rating) >= ?', [$minRating]);
             });
         }
 
         return $products;
     }
-
     private function average($products, $comments)
     {
         foreach ($products as $product) {
@@ -87,17 +93,13 @@ class ProductController extends Controller
                 where('name', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%')->get();
         }
-
         return view('searchResult', compact(
             'products',
             'search',
-
         ));
-
     }
 
     public function getBySlug($slug)
-
     {
         $product = Product::where('slug', $slug)->first();
         if ($product && $product->recommendations->count() > 0) {
