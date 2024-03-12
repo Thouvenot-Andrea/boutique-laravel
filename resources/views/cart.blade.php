@@ -36,9 +36,11 @@
                                         <input type="submit" value="-" id="decrement[{{$product->id}}]"
                                                class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-primary hover:text-blue-50"/>
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input id="quantityInput[{{$product->id}}]" name="quantity"
-                                               class="h-8 w-8 border bg-white text-center text-xs outline-none"
-                                               type="number" value="{{ $quantity }}" min="1"/>
+                                        <label for="quantityInput[{{$product->id}}]"></label>
+                                        <input
+                                            id="quantityInput[{{$product->id}}]" name="quantity"
+                                            class="h-8 w-8 border bg-white text-center text-xs outline-none"
+                                            type="number" value="{{ $quantity }}" min="1"/>
                                         <input type="submit" value="+" id="increment[{{$product->id}}]"
                                                class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-primary hover:text-blue-50"/>
                                     </form>
@@ -80,7 +82,6 @@
                                 <p class="text-sm text-gray-700">including VAT</p>
                             </div>
                         </div>
-                        <p>
                         <form action="{{route('cart.checkout')}}" method="POST">
                             @csrf
                             <button
@@ -88,7 +89,6 @@
                                 Checkout
                             </button>
                         </form>
-                        </p>
                     </div>
                 </div>
             </div>

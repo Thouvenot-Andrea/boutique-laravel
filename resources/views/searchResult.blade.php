@@ -4,7 +4,7 @@
             @foreach($products as $product)
                 <article>
                     <div>
-                        <img class="object-cover h-[300px] min-w-[290px] max-w-full]" src="{{$product->picture}}">
+                        <img class="object-cover h-[300px] min-w-[290px] max-w-full]" src="{{$product->picture}}" alt="product picture">
                     </div>
                     <div class="max-w-[390px]">
                         <h1 class="text-center text-blue-700"> {{$product->name}}</h1>
@@ -14,8 +14,8 @@
                     </div>
                 </article>
         @endforeach
-{{--                    @else--}}
-{{--                        <p>Aucun produit trouvé pour "{{ $search }}".</p>--}}
+                    @else
+                        <p>Aucun produit trouvé pour "{{ $search }}".</p>
 
     @endif
 </x-app-layout>

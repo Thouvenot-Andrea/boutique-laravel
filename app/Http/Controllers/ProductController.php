@@ -51,10 +51,17 @@ class ProductController extends Controller
         }
         if ($maxPrice) {
             $products = $products->where('TTC_price', '<=', (float)$maxPrice);
+
+            $products = $products->where('TTC_price', '>=', (int)$minPrice);
+        }
+        if ($maxPrice) {
+            $products = $products->where('TTC_price', '<=', (int)$maxPrice);
+
         }
 
         return $products;
     }
+
     private function ratingFilter(Request $request, HasMany $products)
     {
         if ($request->has('min_rating')) {
@@ -80,17 +87,16 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $products = Product::latest();
+        $products = [];
         if ($search) {
-            $products
-                ->where('name', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
+            $products = Product::
+                where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')->get();
         }
-        $search = $products->get();
-
-        return view('searchResult', [
-            'products' => $search,
-        ]);
+        return view('searchResult', compact(
+            'products',
+            'search',
+        ));
     }
 
     public function getBySlug($slug)
