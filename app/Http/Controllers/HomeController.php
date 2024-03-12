@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         foreach ($products as $product) {
             $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
+            $product->averageRating = round($product->comments->avg('rating'));
 
         }
 
