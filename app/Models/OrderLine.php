@@ -38,6 +38,17 @@ class OrderLine extends Model
     use HasFactory;
     use HasUuids;
 
+    protected $fillable = [
+
+        'picture',
+        'name',
+        'slug',
+        'price',
+        'delivered_at',
+        'quantity',
+        'order_id',
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
