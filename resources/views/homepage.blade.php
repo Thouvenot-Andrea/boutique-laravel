@@ -7,14 +7,16 @@
                 Bienvenue chez Tempo !
             </h1>
             <div class="categories">
-                <div class="text-3xl text-center mb-10">
-                    <h2>Catégories</h2>
+                <div class="text-3xl text-center mb-10 underline decoration-orange-400">
+                    <h2>Nos Catégories</h2>
                 </div>
                 <div class="flex flex-wrap justify-center">
                     @foreach($categories as $category)
                         <div>
                             <div class="mx-3 w-44">
-                                <img src='{{$category->image}}'>
+                                <a href="{{route('products',$category->slug )}}">
+                                    <img src='{{$category->image}}'>
+                                </a>
                             </div>
                             <div class="text-center mt-5 mb-5">
                                 <h3>{{ $category->name }}</h3>
@@ -26,7 +28,10 @@
         </div>
     </div>
     <div class="flex flex-col space-y-10 md:space-y-16">
-        <div class="flex flex-wrap space-x-2 justify-center">
+        <h1 class="text-3xl text-center underline decoration-orange-400">
+             Produits Phares
+        </h1>
+        <div class="flex flex-wrap space-x-2 justify-center ">
             @foreach($products as $product)
                 <article>
                     <div>

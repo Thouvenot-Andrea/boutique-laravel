@@ -20,41 +20,36 @@ class ProductController extends Controller
 {
 
 
-    public function index(Request $request)
+    public function index(Request $request, string $category_id)
     {
-        // Créer une instance de la requête pour les produits
-        $productsQuery = Product::query();
 
-        // Appliquer les filtres
-        $productsQuery = $this->priceFilter($request, $productsQuery);
-        $productsQuery = $this->stockFilter($request, $productsQuery);
-        $productsQuery = $this->ratingFilter($request, $productsQuery);
+        $category = Category::where('slug', '=', $category_id)->first();
+        $products = $category->products();
 
-        // Paginer les résultats
-        $products = $productsQuery->paginate(6);
+        $products = $this->priceFilter($request, $products);
+        $products = $this->ratingFilter($request, $products);
 
-        // Récupérer les commentaires une fois que les filtres sont appliqués
+        $products = $products->paginate(6);
+
         $comments = Comment::all();
 
-        // Appliquer les filtres après la pagination
         $products->each(function ($product) use ($comments) {
             $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
+            $product->averageRating =round($product->comments->avg('rating'));
         });
 
-        return view('products', compact('products'));
+        return view('products', compact('products', 'category'));
     }
 
-    private function priceFilter(Request $request, $productsQuery)
+    private function priceFilter(Request $request, $products)
     {
         $minPrice = $request->input('min_price');
         $maxPrice = $request->input('max_price');
 
-        // Appliquer les filtres
         if ($minPrice) {
             $productsQuery = $productsQuery->where('TTC_price', '>=', (float)$minPrice);
+            $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
-
         if ($maxPrice) {
             $productsQuery = $productsQuery->where('TTC_price', '<=', (float)$maxPrice);
         }
@@ -71,23 +66,22 @@ class ProductController extends Controller
             if ($inStock) {
                 $productsQuery = $productsQuery->where('stock', '>', 0);
             }
+            $products = $products->where('TTC_price', '<=', (int)$maxPrice);
         }
-
-        return $productsQuery;
+        return $products;
     }
 
-    private function ratingFilter(Request $request, $productsQuery)
+    private function ratingFilter(Request $request, $products)
     {
         if ($request->has('min_rating')) {
             $minRating = (float)$request->input('min_rating');
 
-            // Appliquer le filtre de note minimale
-            $productsQuery = $productsQuery->whereHas('comments', function ($query) use ($minRating) {
+            $products = $products->whereHas('comments', function ($query) use ($minRating) {
                 $query->where('rating', '>=', $minRating);
             });
         }
 
-        return $productsQuery;
+        return $products;
     }
 
     private function average($products, $comments)
@@ -100,16 +94,12 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-
         $search = $request->input('search');
-
         $products = Product::latest();
-
         if ($search) {
             $products
                 ->where('name', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
-
         }
         $search = $products->get();
 
