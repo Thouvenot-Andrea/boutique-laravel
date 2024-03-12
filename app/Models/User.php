@@ -112,4 +112,9 @@ class User extends Authenticatable
         return $this->hasOne(Address::class);
     }
 
+    public function hasRole(string $string): bool
+    {
+        return $this->roles->contains('name', $string);
+    }
+
 }
