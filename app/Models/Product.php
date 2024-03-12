@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $id
  * @property string $picture
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property int $weight
  * @property int $stock
@@ -53,6 +54,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory, HasUuids;
+
+    protected $fillable = [
+        'slug',
+        'name',
+        'weight',
+        'picture',
+        'description',
+        'stock',
+        'HT_price',
+        'TTC_price',
+        'VAT',
+        'category_id'
+    ];
 
     public function wishlists(): HasMany
     {

@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DeliveryFee;
+use App\Models\Order;
+use App\Models\OrderLine;
 use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class CartController extends Controller
 {
     public function index()
     {
-        if(!session('cart')){
+        if (!session('cart')) {
             return view('cart');
         }
         $productsWithQuantities = session('cart');
@@ -51,7 +55,7 @@ class CartController extends Controller
         if (isset($request->product_id) && isset($request->quantity)) {
             $cart = $request->session()->get('cart');
 
-            if($request->quantity == 0){
+            if ($request->quantity == 0) {
                 unset($cart[$request->product_id]);
                 $request->session()->put('cart', $cart);
                 return redirect()->back()->with('success', 'Product removed from cart successfully!');
@@ -123,4 +127,53 @@ class CartController extends Controller
         }
         return $total_products_count;
     }
+
+    public function checkout(): View
+    {
+        //on récupère le cart via la session
+        $cart_products = collect(request()->session()->get('cart'));
+
+        //création d'une commande en faisant appel au MOdel Order
+        $order = Order::create([
+            'user_id' => Auth::user()->id,//on récupère l'id de l'utilisateur connecté
+            'delivery_fee_id' => fake()->randomElement(DeliveryFee::pluck('id')->toArray()), //récupère un delivery_fee qui existe déjà (pluck)
+            'delivered_at' => fake()->dateTimeThisYear(),
+            'total' => self::totalCart(), //on utilise la méthode déjà existante
+            'status' => 'pending',
+        ]);
+        $orderlines = [];
+
+        foreach ($cart_products as $id => $quantity) {
+            //Récupération des données produits en fonction de l'id dans le cart
+            $product = Product::find($id);
+
+
+            //creation de l'order line en fonction du produit récupéré
+            $orderline = OrderLine::create([
+                'picture' => $product->picture,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'price' => $product->TTC_price,
+                'quantity' => $quantity,
+                'order_id' => $order->id,
+
+            ]);
+
+            $orderlines[] = $orderline;
+        }
+
+        //vider le cart une fois la commande passée.
+        request()-> session()->forget('cart');
+
+        return view('checkout-success', compact(
+            'orderlines',
+            'order',
+        ));
+    }
+
+
 }
+
+
+
+

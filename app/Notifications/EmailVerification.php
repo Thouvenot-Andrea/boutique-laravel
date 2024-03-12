@@ -30,7 +30,7 @@ class EmailVerification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['slack'];
+        return ['mail', 'slack'];
     }
 
     /**

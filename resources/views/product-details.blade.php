@@ -8,7 +8,7 @@
             <div class="flex flex-wrap justify-evenly">
 
                 <div>
-                    <img class=" min-w-[250px] max-w-[250px] mr-15" src="{{$product->picture}}">
+                    <img class=" min-w-[250px] max-w-[250px] mr-15" src="{{$product->picture}}" alt="product picture">
                 </div>
                 <div class="text-center m-8">
                     <p class="max-w-[350px]">{{$product->description}}</p>
@@ -23,15 +23,26 @@
                 <div class="flex items-center">
                     <span class="mr-2">Quantité:</span>
                     <input name="product_id" type="hidden" value="{{$product->id}}" class="hidden">
+                    <label for="quantityInput"></label>
                     <input id="quantityInput" name="quantity" type="number" value="1"
-                           class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none">
+                                                              class="px-2 py-1 w-16 bg-gray-100 text-center focus:outline-none">
                 </div>
                 <div class="flex items-center">
                     <input type="submit" class="btn" value="Ajouter au panier">
                 </div>
             </form>
 
+            <form action="{{ route('wishlist.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="product_id" value="{{$product->id}}">
+{{--                Heart svg--}}
+                <button type="submit" class="btn">
+                <img src="{{asset('images/heart.svg')}}" alt="heart">
+                </button>
+            </form>
+
         </div>
+
 
     </section>
     @if($recommendations)
@@ -46,7 +57,7 @@
                     <article>
                         <div>
                             <img class="object-cover h-[300px] min-w-[290px] max-w-full]"
-                                 src="{{$recommendation->recommendedProduct->picture}}">
+                                 src="{{$recommendation->recommendedProduct->picture}}" alt="recommended picture">
                         </div>
                         <div class="max-w-[390px]">
                             <h1 class="text-center text-blue-700">

@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Slack\SlackRoute;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -133,6 +132,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForSlack(Notification $notification)
     {
         return env('SLACK_WEBHOOK_URL');
+    }
+
+    public function hasRole(string $string): bool
+    {
+        return $this->roles->contains('name', $string);
     }
 
 }
