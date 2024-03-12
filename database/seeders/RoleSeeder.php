@@ -14,7 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = Permission::inRandomOrder()->limit(random_int(1,10))->get();
-        Role::factory(2)->hasAttached($permissions)->create();
+//        $permissions = Permission::inRandomOrder()->limit(random_int(1,10))->get();
+//        Role::factory(2)->hasAttached($permissions)->create();
+
+        $role = Role::factory()->create(['name' => 'admin']);
+        $role->permissions()->attach(Permission::all());
+
+        $role = Role::factory()->create(['name' => 'user']);
+        $role->permissions()->attach(Permission::all());
     }
 }

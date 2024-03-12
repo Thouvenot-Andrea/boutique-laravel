@@ -21,7 +21,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/category/{category_id}', [ProductController::class, 'index'])->name('products');
 
 Route::get('/product/{id}', [ProductController::class, 'getBySlug'])->name('product.show');
 
