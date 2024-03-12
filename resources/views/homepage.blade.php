@@ -15,7 +15,7 @@
                         <div>
                             <div class="mx-3 w-44">
                                 <a href="{{route('products',$category->slug )}}">
-                                    <img src='{{$category->image}}'>
+                                    <img src='{{$category->image}}' alt="category image">
                                 </a>
                             </div>
                             <div class="text-center mt-5 mb-5">
@@ -37,7 +37,7 @@
                     <div>
                         <a href="{{route('product.show', $product->slug)}}"> <img
                                 class="object-cover h-[300px] min-w-[290px] max-w-full]"
-                                src="{{$product->picture}}"></a>
+                                src="{{$product->picture}}" alt="product picture"></a>
                     </div>
                     <div class="max-w-[390px]">
 

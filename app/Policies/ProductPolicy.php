@@ -37,7 +37,7 @@ class ProductPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Product $product): bool
+    public function update(User $user, Product $product): Response
     {
         return $user->hasRole('admin')
             ? Response::allow()
@@ -47,7 +47,7 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Product $product): bool
+    public function delete(User $user, Product $product): Response
     {
         return $user->hasRole('admin')
             ? Response::allow()
@@ -57,7 +57,7 @@ class ProductPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Product $product): bool
+    public function restore(User $user, Product $product): Response
     {
         return $user->hasRole('admin')
             ? Response::allow()
@@ -67,7 +67,7 @@ class ProductPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Product $product): bool
+    public function forceDelete(User $user, Product $product): Response
     {
         return $user->hasRole('admin')
             ? Response::allow()

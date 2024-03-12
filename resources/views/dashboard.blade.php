@@ -35,8 +35,9 @@
         <!-- Description -->
         <div class="flex justify-center mt-4 mb-5">
             <x-input-label for="description" :value="__('Description *')"/>
+            <label for="description"></label>
             <textarea id="description" class="block mt-1 w-3/4" type="description" name="description"
-                      required>{{ old('description') }}</textarea>
+                                                       required>{{ old('description') }}</textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2"/>
         </div>
         <div class="flex flex-wrap ml-36 mb-5">
@@ -74,6 +75,7 @@
         <!-- Categorie -->
         <div class="flex ml-36">
             <x-input-label for="Category" :value="__('Catégorie *')"/>
+            <label for="Category"></label>
             <select id="Category" class="block mt-1 w-80" name="category_id" required>
                 <option value="">Sélectionnez une catégorie</option>
                 @foreach ($categories as $category)

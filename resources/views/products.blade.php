@@ -27,7 +27,7 @@
                 <article class="flex flex-col w-[400px]">
                     <div>
                         <a href="{{route('product.show', $product->slug)}}">
-                            <img class="object-cover h-[300px] min-w-[290px] max-w-full" src="{{$product->picture}}">
+                            <img class="object-cover h-[300px] min-w-[290px] max-w-full" src="{{$product->picture}}" alt="product picture">
                         </a>
                     </div>
                     <div class="max-w-[390px]">

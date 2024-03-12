@@ -47,7 +47,6 @@
         </div>
 
     @endforeach
-    <di
     <dl class="mt-10 space-y-6 text-sm font-medium text-gray-500">
         <div class="flex justify-between">
             <dt>Sous total</dt>

@@ -47,29 +47,15 @@ class ProductController extends Controller
         $maxPrice = $request->input('max_price');
 
         if ($minPrice) {
-            $productsQuery = $productsQuery->where('TTC_price', '>=', (float)$minPrice);
             $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
         if ($maxPrice) {
-            $productsQuery = $productsQuery->where('TTC_price', '<=', (float)$maxPrice);
-        }
-
-        return $productsQuery;
-    }
-
-    private function stockFilter(Request $request, $productsQuery)
-    {
-        if ($request->filled('in_stock')) {
-            $inStock = $request->input('in_stock') == 'true';
-
-            // Appliquer le filtre de stock
-            if ($inStock) {
-                $productsQuery = $productsQuery->where('stock', '>', 0);
-            }
             $products = $products->where('TTC_price', '<=', (int)$maxPrice);
         }
+
         return $products;
     }
+
 
     private function ratingFilter(Request $request, $products)
     {
