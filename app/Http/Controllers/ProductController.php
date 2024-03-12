@@ -114,7 +114,7 @@ class ProductController extends Controller
 
         return view('searchResult', [
             'products' => $search,
-            'searchTerm' => $search,
+
 
         ]);
 

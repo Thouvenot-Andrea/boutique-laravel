@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $id
  * @property string $picture
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property int $weight
  * @property int $stock

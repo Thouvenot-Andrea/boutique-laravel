@@ -53,6 +53,8 @@ class Order extends Model
         'status',
         'ordered_at',
         'delivered_at',
+        'user_id',
+        'delivery_fee_id',
     ];
 
 
@@ -61,9 +63,9 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function deliveryFee() : HasOne
+    public function deliveryFee() : BelongsTo
     {
-        return $this->hasOne(DeliveryFee::class);
+        return $this->belongsTo(DeliveryFee::class);
     }
 
     public function orderLines(): HasMany
