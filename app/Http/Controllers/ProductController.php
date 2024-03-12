@@ -18,97 +18,62 @@ class ProductController extends Controller
 {
 
 
-
-    public function index(Request $request)
+    public function index(Request $request, string $category_id)
     {
-        // Créer une instance de la requête pour les produits
-        $productsQuery = Product::query();
 
-        // Appliquer les filtres
-        $productsQuery = $this->priceFilter($request, $productsQuery);
-        $productsQuery = $this->stockFilter($request, $productsQuery);
-        $productsQuery = $this->ratingFilter($request, $productsQuery);
+        $category = Category::where('slug', '=', $category_id)->first();
+        $products = $category->products();
 
-        // Paginer les résultats
-        $products = $productsQuery->paginate(6);
+        $products = $this->priceFilter($request, $products);
+        $products = $this->ratingFilter($request, $products);
 
-        // Récupérer les commentaires une fois que les filtres sont appliqués
+        $products = $products->paginate(6);
+
         $comments = Comment::all();
 
-        // Appliquer les filtres après la pagination
         $products->each(function ($product) use ($comments) {
             $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
+            $product->averageRating =round($product->comments->avg('rating'));
         });
 
-        return view('products', compact('products'));
+        return view('products', compact('products', 'category'));
     }
 
-    private function priceFilter(Request $request, $productsQuery)
+    private function priceFilter(Request $request, $products)
     {
         $minPrice = $request->input('min_price');
         $maxPrice = $request->input('max_price');
 
-        // Appliquer les filtres
         if ($minPrice) {
-            $productsQuery = $productsQuery->where('TTC_price', '>=', (float) $minPrice);
+            $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
-
         if ($maxPrice) {
-            $productsQuery = $productsQuery->where('TTC_price', '<=', (float) $maxPrice);
+            $products = $products->where('TTC_price', '<=', (int)$maxPrice);
         }
-
-        return $productsQuery;
+        return $products;
     }
 
-    private function stockFilter(Request $request, $productsQuery)
-    {
-        if ($request->filled('in_stock')) {
-            $inStock = $request->input('in_stock') == 'true';
-
-            // Appliquer le filtre de stock
-            if ($inStock) {
-                $productsQuery = $productsQuery->where('stock', '>', 0);
-            }
-        }
-
-        return $productsQuery;
-    }
-
-    private function ratingFilter(Request $request, $productsQuery)
+    private function ratingFilter(Request $request, $products)
     {
         if ($request->has('min_rating')) {
-            $minRating = (float) $request->input('min_rating');
+            $minRating = (float)$request->input('min_rating');
 
-            // Appliquer le filtre de note minimale
-            $productsQuery = $productsQuery->whereHas('comments', function ($query) use ($minRating) {
+            $products = $products->whereHas('comments', function ($query) use ($minRating) {
                 $query->where('rating', '>=', $minRating);
             });
         }
 
-        return $productsQuery;
+        return $products;
     }
-
-    private function average($products, $comments)
-    {
-        foreach ($products as $product) {
-            $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
-        }
-}
 
     public function search(Request $request)
     {
-
         $search = $request->input('search');
-
         $products = Product::latest();
-
         if ($search) {
             $products
                 ->where('name', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
-
         }
         $search = $products->get();
 
@@ -137,35 +102,36 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('dashboard',compact('categories'));
+        return view('dashboard', compact('categories'));
     }
-    public function store(Request $request):RedirectResponse
+
+    public function store(Request $request): RedirectResponse
     {
-       $request->validate([
-           'picture'=>['required', 'file'],
-           'name'=>['required', 'string', 'max:255'],
-           'description'=>['required', 'string', 'max:800'],
-           'weight'=>['required', 'string', 'max:5'],
-           'stock'=>['required', 'string', 'max:10'],
-           'HT_price'=>['required', 'string', 'max:10'],
-           'VAT'=>['required', 'string', 'max:5'],
-           'category_id'=>['required', 'select'],
-           ]);
+        $request->validate([
+            'picture' => ['required', 'file'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:800'],
+            'weight' => ['required', 'string', 'max:5'],
+            'stock' => ['required', 'string', 'max:10'],
+            'HT_price' => ['required', 'string', 'max:10'],
+            'VAT' => ['required', 'string', 'max:5'],
+            'category_id' => ['required', 'select'],
+        ]);
 
-       $product = Product::create([
-           'slug' => Str::of($request->name)->slug()->value(),
-           'picture' => $request->picture,
-           'name' => $request->name,
-           'description' => $request->description,
-           'weight' => $request->weight,
-           'stock' => $request->stock,
-           'HT_price' => $request->HT_price,
-           'TTC_price' => $request->HT_price,
-           'VAT' => $request->VAT,
-           'category_id' => $request->category_id,
-       ]);
+        $product = Product::create([
+            'slug' => Str::of($request->name)->slug()->value(),
+            'picture' => $request->picture,
+            'name' => $request->name,
+            'description' => $request->description,
+            'weight' => $request->weight,
+            'stock' => $request->stock,
+            'HT_price' => $request->HT_price,
+            'TTC_price' => $request->HT_price,
+            'VAT' => $request->VAT,
+            'category_id' => $request->category_id,
+        ]);
 
-              return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME);
     }
 
 }
