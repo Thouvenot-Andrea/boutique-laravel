@@ -64,14 +64,6 @@ class ProductController extends Controller
 
         return $products;
     }
-    private function average($products, $comments)
-    {
-        foreach ($products as $product) {
-            $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
-        }
-    }
-
     public function search(Request $request)
     {
         $search = $request->input('search');
