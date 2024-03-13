@@ -15,9 +15,9 @@
         </div>
     </div>
     <!--Mettre à jour un produit-->
-    <form method="POST" action="{{ route('products.store') }}" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <form method="POST" action="{{ route('products.update', $product->id) }}" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @csrf
-
+        @method('PATCH')
         <!-- picture -->
         <div class="flex ml-36 mb-5">
             <x-input-label for="picture" :value="__('Image *')"/>

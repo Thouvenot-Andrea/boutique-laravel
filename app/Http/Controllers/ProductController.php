@@ -18,6 +18,7 @@ use App\Models\Recommendation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Nette\Utils\Image;
 
@@ -157,31 +158,29 @@ class ProductController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function edit($slug)
+    public function edit($product)
     {
         $categories = Category::all();
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $product)->first();
         return view('product-edit', ['product' => $product], compact('categories','product'));
     }
 
-    public function update(ProductRequest $request, Product $product): RedirectResponse
+    public function update(Request $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated());
-        $validateData = $request->validated(); //valider les données
+        $validateData = $request->validate([
 
-        $product->update([ //mettre à jour
-            'picture' => $validateData['picture'],
-            'name' => $validateData['name'],
-            'description' => $validateData['description'],
-            'weight' => $validateData['weight'],
-            'stock' => $validateData['stock'],
-            'HT_price' => $validateData['HT_price'],
-            'TTC_price' => $validateData['TTC_price'],
-            'VAT' => $validateData['VAT'],
-            'category_id' => $validateData['category_id'],
+            'picture' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:800'],
+            'weight' => ['required', 'string', 'max:5'],
+            'stock' => ['required', 'string', 'max:10'],
+            'HT_price' => ['required', 'string', 'max:10'],
+            'VAT' => ['required', 'string', 'max:5'],
+            'category_id' => ['required', 'string'],
         ]);
-//        $request->products()->save(); //enregiter les données
-        return Redirect::route('product-edit',['slug'=> $product->slug, 'product' => $product->id])->with('success', 'Le produit à été modifié avec succès');
+
+        $product->update($validateData);
+        return Redirect::route('products.edit',['product' => $product->slug])->with('success', 'Le produit à été modifié avec succès');
 
     }
 }
