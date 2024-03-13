@@ -31,7 +31,16 @@
                     <input type="submit" class="btn" value="Ajouter au panier">
                 </div>
             </form>
-
+            @wishlisted($product)
+            <form action="{{ route('wishlist.destroy') }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="product_id" value="{{$product->id}}">
+                <button type="submit" class="btn">
+                    <img src="{{asset('images/red-heart.svg')}}" alt="heart">
+                </button>
+            </form>
+            @else
             <form action="{{ route('wishlist.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="product_id" value="{{$product->id}}">
@@ -40,6 +49,7 @@
                 <img src="{{asset('images/heart.svg')}}" alt="heart">
                 </button>
             </form>
+            @endwishlisted
 
 
                  <a href="{{ route('products.edit', $product->slug) }}" type="submit" class="btn text-gray-700">modifier le produit</a>

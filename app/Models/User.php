@@ -95,6 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
@@ -109,6 +110,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
@@ -126,7 +128,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Route notifications for the Slack channel.
      *
-     * @param  \Illuminate\Notifications\Notification  $notification
+     * @param \Illuminate\Notifications\Notification $notification
      * @return string
      */
     public function routeNotificationForSlack(Notification $notification)
@@ -139,4 +141,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles->contains('name', $string);
     }
 
+    public function hasWishlisted(Product $product): bool
+    {
+
+        return $this->wishlist->products->contains($product);
+    }
 }

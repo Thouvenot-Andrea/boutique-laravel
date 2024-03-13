@@ -2,22 +2,22 @@
 <x-app-layout>
     @if($products->count() > 0)
         @auth
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Wishlist') }}
-            </h2>
-        </x-slot>
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Wishlist') }}
+                </h2>
+            </x-slot>
         @endauth
         <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-wrap justify-center items-center">
                 @foreach($products as $product)
-                    <div class="flex flex-col space-y-10 md:space-y-16 ">
+                    <div class="flex flex-row space-y-10 md:space-y-16 ">
                         <div class="flex flex-wrap space-x-2 justify-center my-10">
-                            <article>
-                                <div>
-                                    <img class="object-cover h-[300px] min-w-[290px] max-w-full]"
+                            <article class="flex gap-10">
+                                <a href="{{ route('product.show', $product->slug) }}">
+                                    <img class="object-cover h-[100px] min-w-[100px] max-w-full]"
                                          src="{{$product->picture}}" alt="product picture">
-                                </div>
+                                </a>
                                 <div class="max-w-[390px]">
                                     <h1 class="text-center text-blue-700">
                                         {{$product->name}}</h1>
@@ -29,6 +29,13 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <!-- Clear cart -->
+            <div class="flex justify-center">
+                <form action="{{ route('wishlist.clear') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">Vider la liste de souhaits</button>
+                </form>
             </div>
         </div>
     @else

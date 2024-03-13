@@ -11,7 +11,11 @@ class WishlistController extends Controller
 
     public function index()
     {
-        $products = Auth::user()->wishlist->products;
+        $products = Auth::user()->wishlist?->products;
+        if(!$products)
+        {
+            return view('wishlist', ['products' => collect()]);
+        }
         return view('wishlist', compact('products'));
     }
 
@@ -20,13 +24,11 @@ class WishlistController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id'
         ]);
-//        if($request->user()->wishlist()->where('product_id', $request->product_id)->exists()) {
-//            return back()->withErrors('You already have this product in your wishlist');
-//        }
-        if($request->user()->wishlist == null)
+
+        if(!isset($request->user()->wishlist))
         {
             $request->user()->wishlist()->save(Wishlist::create([
-                'user_id' => $request->user()->id,
+                'user_id' => $request->user()->id
             ]));
         }
 
@@ -35,16 +37,20 @@ class WishlistController extends Controller
         return back();
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        $request->user()->wishlist()->detach($id);
+
+        $request->validate([
+            'product_id' => 'required|exists:products,id'
+        ]);
+        $request->user()->wishlist->products()->detach($request->product_id);
 
         return back();
     }
 
     public function clear(Request $request)
     {
-        $request->user()->wishlist()->detach();
+        $request->user()->wishlist->products()->detach();
 
         return back();
     }
