@@ -31,7 +31,6 @@ class ProductController extends Controller
         $products = $products->paginate(6);
 
         $products->each(function ($product) {
-            $product->comments;
             $product->averageRating=$product->comments->avg('rating');
         });
         return view('products', compact('products', 'category'));
