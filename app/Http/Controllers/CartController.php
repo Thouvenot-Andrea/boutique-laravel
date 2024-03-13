@@ -78,14 +78,7 @@ class CartController extends Controller
         unset($cart[$request->product_id]);
         $request->session()->put('cart', $cart);
 
-        $cart_products = collect(request()->session()->get('cart'));
-        $cart_total = 0;
-        if (session('cart')) {
-            foreach ($cart_products as $quantity) {
-
-                $cart_total += $quantity * $request->price;
-            }
-        }
+        $cart_total = self::totalCart();
 
         $total_products_count = count(request()->session()->get('cart'));
 

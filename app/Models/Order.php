@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsStringable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +60,7 @@ class Order extends Model
     ];
 
 
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -71,6 +74,14 @@ class Order extends Model
     public function orderLines(): HasMany
     {
         return $this->hasMany(OrderLine::class);
+    }
+
+    public function total(): Attribute
+    {
+        // getter
+        return Attribute::make(
+          get: fn(mixed $value)=> number_format($value/100,2)
+        );
     }
 
 }

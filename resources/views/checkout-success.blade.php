@@ -21,7 +21,8 @@
                                             <div class="flex-auto space-y-1 text-sm font-medium">
                                                 <h3 class="text-gray-900">{{$orderline->name}}
                                                 </h3>
-                                                <p class="text-gray-900">{{number_format(($orderline->price)/100, 2)}} €</p>
+                                                <p class="text-gray-900">{{number_format(($orderline->price)/100, 2)}}
+                                                    €</p>
                                                 <p class="text-gray-900">Quantité: {{$orderline->quantity}} </p>
                                             </div>
                                             <div class="flex flex-none space-x-4">
@@ -50,7 +51,8 @@
     <dl class="mt-10 space-y-6 text-sm font-medium text-gray-500">
         <div class="flex justify-between">
             <dt>Sous total</dt>
-            <dd class="text-gray-900">{{number_format(($order->total)/100,2)}} €</dd>
+            {{--on utilise le getter fais dans le model order pour mettre au format voulu--}}
+            <dd class="text-gray-900">{{$order->total}} €</dd>
         </div>
         <div class="flex justify-between">
             <dt>Frais de livraison</dt>
