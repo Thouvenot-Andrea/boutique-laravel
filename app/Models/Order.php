@@ -76,12 +76,12 @@ class Order extends Model
         return $this->hasMany(OrderLine::class);
     }
 
-    public function total(): Attribute
-    {
-        // getter
-        return Attribute::make(
-          get: fn(mixed $value)=> number_format($value/100,2)
-        );
-    }
+//    public function total(): Attribute
+//    {
+//        // getter
+//        return Attribute::make(
+//          get: fn(mixed $value)=> number_format($value/100,2)
+//        );
+//    }
 
 }

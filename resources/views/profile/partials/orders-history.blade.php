@@ -10,7 +10,7 @@
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="max-w-xl flex items-center justify-around">
                         <img src="{{$order->orderLines->first()->picture}}" class="w-10 h-10">
-                       <p>Total : {{$order->total}} € </p>
+                       <p>Total : {{number_format($order->total/100,2)}} € </p>
                         <p>Status : {{$order->status}} </p>
                     </div>
                 </div>
