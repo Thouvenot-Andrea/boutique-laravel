@@ -98,6 +98,10 @@
             </div>
         @endif
     </div>
+    <div>
+        <img src="{{asset('images/ads/ad-guitar.png')}}" alt="guitarAd" class="w-full hidden md:flex">
+        <img src="{{asset('images/ads/mobile/ad-guitar.png')}}" alt="guitarAd" class="w-full block md:hidden">
+    </div>
     <script>
         @if(isset($productsWithQuantities))
         @foreach($productsWithQuantities as $id => $quantity)
