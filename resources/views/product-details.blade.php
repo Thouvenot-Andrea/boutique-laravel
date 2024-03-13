@@ -41,6 +41,8 @@
                 </button>
             </form>
 
+
+                 <a href="{{ route('products.edit', $product->slug) }}" type="submit" class="btn text-gray-700">modifier le produit</a>
         </div>
 
 
