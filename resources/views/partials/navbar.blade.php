@@ -51,16 +51,19 @@
                 <a href="{{ url('/wishlist') }}" class="text-white hover:text-gray-300">
                     <img src="{{ asset('images/heart.svg') }}" alt="">
                 </a>
-                <a href="{{ url('/cart') }}" class="text-white hover:text-gray-300 relative">
-                    <div class="relative">
-                        <img src="{{ asset('images/cart.svg') }}" alt="">
-                        <!-- Badge -->
-                        @if(session()->get('cart') && \App\Http\Controllers\CartController::totalProductsCount() != 0)
-                            <div
-                                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full py-1 px-2 w-4 h-4 items-center">
-                                <p class="absolute top-0 right-1">{{ \App\Http\Controllers\CartController::totalProductsCount() }}</p>
-                            </div>
-                        @endif
+                <a href="{{ route('cart.index') }}" class="text-white hover:text-gray-300 relative">
+                    @php($nbProducts = \App\Http\Controllers\CartController::totalProductsCount())
+                    <div>
+                        <button type="button"
+                                class="relative flex focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <span class="sr-only">Ouvre ton panier</span>
+                            @if(isset($nbProducts) && $nbProducts != 0)
+                                <span
+                                    class="absolute text-xs text-white -top-2 -right-2 px-2 py-1 bg-red-600 rounded-full">{{ $nbProducts > 99 ? '99+' : $nbProducts }}</span>
+                            @endif
+                            <img class="" src="{{asset('images/cart.svg')}}" alt="">
+                        </button>
                     </div>
                 </a>
                 @auth
