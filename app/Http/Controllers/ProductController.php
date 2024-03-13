@@ -157,9 +157,10 @@ class ProductController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function edit(Product $product)
+    public function edit($slug)
     {
         $categories = Category::all();
+        $product = Product::where('slug', $slug)->first();
         return view('product-edit', ['product' => $product], compact('categories','product'));
     }
 
