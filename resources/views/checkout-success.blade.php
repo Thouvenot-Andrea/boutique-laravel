@@ -25,18 +25,7 @@
                                                     €</p>
                                                 <p class="text-gray-900">Quantité: {{$orderline->quantity}} </p>
                                             </div>
-                                            <div class="flex flex-none space-x-4">
-                                                <button type="button"
-                                                        class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                    Edit
-                                                </button>
-                                                <div class="flex border-l border-gray-300 pl-4">
-                                                    <button type="button"
-                                                            class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </li>
@@ -51,8 +40,7 @@
     <dl class="mt-10 space-y-6 text-sm font-medium text-gray-500">
         <div class="flex justify-between">
             <dt>Sous total</dt>
-            {{--on utilise le getter fais dans le model order pour mettre au format voulu--}}
-            <dd class="text-gray-900">{{$order->total}} €</dd>
+            <dd class="text-gray-900">{{number_format($order->total/100,2)}} €</dd>
         </div>
         <div class="flex justify-between">
             <dt>Frais de livraison</dt>

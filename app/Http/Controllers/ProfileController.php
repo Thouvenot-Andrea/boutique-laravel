@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Order;
+use App\Models\OrderLine;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,4 +59,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function ordersHistory(Request $request)
+    {
+        $orders = Auth::user()->orders;
+
+
+        return view('/profile/partials/orders-history', compact([
+
+            'orders',
+
+        ]));
+    }
+
 }
