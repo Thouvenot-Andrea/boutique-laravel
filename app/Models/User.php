@@ -103,7 +103,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function wishlist(): HasOne
     {
-        return $this->hasOne(Wishlist::class);
+        return $this->hasOne(Wishlist::class)->withDefault( function($wishlist) {
+            $wishlist->save();
+        });
     }
 
     public function comments(): HasMany
@@ -143,7 +145,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasWishlisted(Product $product): bool
     {
-
+        if(!$this->wishlist)
+        {
+            return false;
+        }
         return $this->wishlist->products->contains($product);
     }
 }
