@@ -1,4 +1,4 @@
-<footer class=" static bottom-0 bg-black w-full py-10">
+<footer class="mt-28 static bottom-0 bg-black w-full py-10">
     <div class="flex flex-row justify-around items-start mx-36">
         <div class="flex flex-col gap-3 text-white">
             <h4>Vos avantages</h4>
