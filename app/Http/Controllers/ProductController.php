@@ -42,8 +42,8 @@ class ProductController extends Controller
 
     private function priceFilter(Request $request, $products)
     {
-        $minPrice = $request->input('min_price');
-        $maxPrice = $request->input('max_price');
+        $minPrice = $request->input('min_price')*100;
+        $maxPrice = $request->input('max_price')*100;
 
         if ($minPrice) {
             $products = $products->where('TTC_price', '>=', (int)$minPrice);
