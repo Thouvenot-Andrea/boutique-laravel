@@ -52,4 +52,9 @@
                 </div>
         </div>
     @endif
+
+        <div>
+            <img src="{{asset('images/ads/ad-mega.png')}}" alt="megaAd" class="w-full hidden md:flex">
+            <img src="{{asset('images/ads/mobile/ad-mega.png')}}" alt="megaAd" class="w-full block md:hidden">
+        </div>
 </x-app-layout>

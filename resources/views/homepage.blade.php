@@ -1,6 +1,10 @@
 <x-app-layout>
 
 
+    <div>
+        <img src="{{asset('images/ads/ad-flower.png')}}" alt="flowerAd" class="w-full hidden md:flex">
+        <img src="{{asset('images/ads/mobile/ad-flower.png')}}" alt="flowerAd" class="w-full block md:hidden">
+    </div>
     <div class="md:flex">
         <div class="md:w-3/4 mx-auto p-8">
             <h1 class="text-3xl text-center font-bold mb-10">
