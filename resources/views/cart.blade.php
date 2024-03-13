@@ -24,8 +24,8 @@
                                         class="w-full rounded-lg sm:w-40"/></a>
                                 <div class="ml-4 flex-grow">
                                     <h2 class="text-lg font-bold text-gray-900">{{ $product->name }}</h2>
-                                    <div class="mt-1 flex justify-between items-center">
-                                        <p class="text-xs text-gray-700 w-2/3">{{ $product->description }}</p>
+                                    <div class="mt-1 flex justify-between items-center md:text-clip">
+                                        <p class="text-xs text-gray-700 w-2/3 ">{{ $product->description }}</p>
 
                                     </div>
                                 </div>
@@ -45,9 +45,7 @@
                                                class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-primary hover:text-blue-50"/>
                                     </form>
                                     <div class="flex">
-                                        <p class="text-sm">{{ number_format($product->TTC_price/100, 2) }}€
-                                            x {{ $quantity }}
-                                            : {{ number_format(($product->TTC_price * $quantity)/100, 2) }} €</p>
+                                        <p class="text-sm mt-5 mr-16"> {{ number_format(($product->TTC_price * $quantity)/100, 2) }} €</p>
                                         <form action="{{ route('cart.remove') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
