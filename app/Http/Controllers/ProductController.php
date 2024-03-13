@@ -30,13 +30,9 @@ class ProductController extends Controller
 
         $products = $products->paginate(6);
 
-        $comments = Comment::all();
-
-        $products->each(function ($product) use ($comments) {
-            $product->comments = $comments->where('product_id', $product->id);
+        $products->each(function ($product) {
             $product->averageRating=$product->comments->avg('rating');
         });
-
         return view('products', compact('products', 'category'));
     }
 
@@ -46,19 +42,11 @@ class ProductController extends Controller
         $maxPrice = $request->input('max_price');
 
         if ($minPrice) {
-            $products = $products->where('TTC_price', '>=', (float)$minPrice);
-            $products = $products->where('TTC_price', '>=', (int)$minPrice);
-        }
-        if ($maxPrice) {
-            $products = $products->where('TTC_price', '<=', (float)$maxPrice);
-
             $products = $products->where('TTC_price', '>=', (int)$minPrice);
         }
         if ($maxPrice) {
             $products = $products->where('TTC_price', '<=', (int)$maxPrice);
-
         }
-
         return $products;
     }
 
@@ -76,14 +64,6 @@ class ProductController extends Controller
 
         return $products;
     }
-    private function average($products, $comments)
-    {
-        foreach ($products as $product) {
-            $product->comments = $comments->where('product_id', $product->id);
-            $product->averageRating = $product->comments->avg('rating');
-        }
-    }
-
     public function search(Request $request)
     {
         $search = $request->input('search');
