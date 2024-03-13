@@ -1,4 +1,4 @@
-<section>
+<section xmlns="http://www.w3.org/1999/html">
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}
@@ -49,6 +49,7 @@
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <a href = "{{route('profile.orders')}}"  type="button" class="rounded-md bg-black/80 px-3 py-2 text-sm font-light text-white shadow-sm hover:bg-black/65">Historique des commandes</a>
 
             @if (session('status') === 'profile-updated')
                 <p

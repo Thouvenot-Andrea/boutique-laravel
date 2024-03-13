@@ -154,7 +154,6 @@ class CartController extends Controller
 
             $orderlines[] = $orderline;
         }
-
         //vider le cart une fois la commande passée.
         request()-> session()->forget('cart');
 
