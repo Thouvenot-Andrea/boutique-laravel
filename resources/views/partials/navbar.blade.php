@@ -55,7 +55,7 @@
                     @php($nbProducts = \App\Http\Controllers\CartController::totalProductsCount())
                     <div>
                         <button type="button"
-                                class="relative flex focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                class="relative flex"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                             <span class="sr-only">Ouvre ton panier</span>
                             @if(isset($nbProducts) && $nbProducts != 0)
