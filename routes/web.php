@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/product', [ProductController::class, 'index']);
+Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-Route::get('/product/{id}', [ProductController::class, 'get']);
+Route::get('/products/category/{category_id}', [ProductController::class, 'index'])->name('products');
 
-Route::get('/cart', [CartController::class, 'index']);
+Route::get('/product/{id}', [ProductController::class, 'getBySlug'])->name('product.show');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/orders', [ProfileController::class, 'ordersHistory'])->name('profile.orders');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/wishlist/add', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/remove', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/clear', [WishlistController::class, 'clear'])->name('wishlist.clear');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+});
+
+Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
+Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::patch('/{product}/edit', [ProductController::class, 'update'])->name('products.update');
+
+require __DIR__.'/auth.php';
